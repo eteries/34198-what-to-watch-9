@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Сергей Яньшин](https://up.htmlacademy.ru/react/9/user/34198).
-* Наставник: `Неизвестно`.
+* Наставник: [Михаил Кислый](https://htmlacademy.ru/profile/smart-grizzly).
 
 ---
 
