@@ -1,4 +1,4 @@
-import MovieCard from '../movie-card/movie-card';
+import FilmCard from '../film-card/film-card';
 
 type MainProps = {
   name: string,
@@ -113,7 +113,7 @@ function Main({name, genre, released}: MainProps): JSX.Element {
               new Array(CARDS_NUM)
                 .fill(null)
                 .map((item, index) => index)
-                .map((id) => <MovieCard key={id} />)
+                .map((id) => <FilmCard key={id} />)
             }
           </div>
 
