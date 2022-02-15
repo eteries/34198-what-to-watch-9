@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
-const demoMovie = {
+const demoFilm = {
   name: 'The Grand Budapest Hotel',
   genre: 'Drama',
   released: 2014,
@@ -10,6 +10,6 @@ const demoMovie = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App movie={demoMovie} />
+    <App film={demoFilm} />
   </React.StrictMode>,
   document.getElementById('root'));
