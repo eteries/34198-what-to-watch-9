@@ -1,15 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-
-const demoFilm = {
-  name: 'The Grand Budapest Hotel',
-  genre: 'Drama',
-  released: 2014,
-};
+import { FILMS } from './mocks/films';
+import { REVIEWS } from './mocks/reviews';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App film={demoFilm} />
+    <App films={FILMS} reviews={REVIEWS}/>
   </React.StrictMode>,
   document.getElementById('root'));

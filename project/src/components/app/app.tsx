@@ -8,16 +8,15 @@ import FilmPage from '../film-page/film-page';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import PrivateRoute from '../private-route/private-route';
+import { Film } from '../../types/film';
+import { Review } from '../../types/review';
 
 type AppProps = {
-  film: {
-    name: string,
-    genre: string,
-    released: number
-  }
+  films: Film[],
+  reviews: Review[]
 }
 
-function App({film}: AppProps): JSX.Element {
+function App({films, reviews}: AppProps): JSX.Element {
   return (
     <Router>
       <Routes>
@@ -31,7 +30,7 @@ function App({film}: AppProps): JSX.Element {
         <Route path={AppRoutes.AddReview} element={<AddReview />} />
         <Route path={AppRoutes.Film} element={<FilmPage />} />
         <Route path={AppRoutes.Player} element={<Player />} />
-        <Route path={AppRoutes.Main} element={<Main name={film.name} genre={film.genre} released={film.released} />} />
+        <Route path={AppRoutes.Main} element={<Main name={films[0].name} genre={films[0].genre} released={films[0].released} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
