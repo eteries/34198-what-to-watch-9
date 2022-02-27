@@ -1,13 +1,15 @@
 import { Film } from '../../types/film';
 
 type FilmCardProps = {
-  film: Film
+  film: Film,
+  onHover: (id: number) => void,
+  isActive: boolean
 }
 
-function FilmCard({film}: FilmCardProps): JSX.Element {
+function FilmCard({film, onHover, isActive}: FilmCardProps): JSX.Element {
   const {previewImage, name, id} = film;
   return (
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card" onMouseOver={() => onHover(id)}>
       <div className="small-film-card__image">
         <img src={previewImage} alt={name} width="280" height="175"/>
       </div>
