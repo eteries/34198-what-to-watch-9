@@ -1,20 +1,18 @@
-import FilmCard from '../film-card/film-card';
 import Logo from '../logo/logo';
+import FilmList from '../film-list/film-list';
+import { Film } from '../../types/film';
 
 type MainProps = {
-  name: string,
-  genre: string,
-  released: number
+  films: Film[]
 }
 
-const CARDS_NUM = 20;
-
-function Main({name, genre, released}: MainProps): JSX.Element {
+function Main({films}: MainProps): JSX.Element {
+  const {name, genre, released, posterImage, backgroundImage} = films[0];
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={backgroundImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -37,7 +35,7 @@ function Main({name, genre, released}: MainProps): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={posterImage} alt={name} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
@@ -50,13 +48,13 @@ function Main({name, genre, released}: MainProps): JSX.Element {
               <div className="film-card__buttons">
                 <button className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
+                    <use xlinkHref="#play-s" />
                   </svg>
                   <span>Play</span>
                 </button>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
+                    <use xlinkHref="#add" />
                   </svg>
                   <span>My list</span>
                 </button>
@@ -103,14 +101,7 @@ function Main({name, genre, released}: MainProps): JSX.Element {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {
-              new Array(CARDS_NUM)
-                .fill(null)
-                .map((item, index) => index)
-                .map((id) => <FilmCard key={id} />)
-            }
-          </div>
+          <FilmList films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
