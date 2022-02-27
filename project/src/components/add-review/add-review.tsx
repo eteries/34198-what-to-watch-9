@@ -1,11 +1,21 @@
 import Logo from '../logo/logo';
+import { useParams } from 'react-router-dom';
+import { FILMS } from '../../mocks/films';
+import NotFound from '../not-found/not-found';
 
 function AddReview(): JSX.Element {
+  const {id: idParam} = useParams();
+  const film = FILMS.find(({id}) => id.toString() === idParam);
+
+  if (film === undefined) {
+    return <NotFound />;
+  }
+
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={film.backgroundImage} alt={film.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -16,7 +26,7 @@ function AddReview(): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="#" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                <a href={`/films/${film.id}`} className="breadcrumbs__link">{film.name}</a>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -37,7 +47,7 @@ function AddReview(): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+          <img src={film.posterImage} alt={film.name} width="218"
             height="327"
           />
         </div>
