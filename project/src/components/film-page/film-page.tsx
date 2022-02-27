@@ -1,11 +1,13 @@
 import Logo from '../logo/logo';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FILMS } from '../../mocks/films';
 import NotFound from '../not-found/not-found';
 import FilmList from '../film-list/film-list';
 import { REVIEWS } from '../../mocks/reviews';
+import { AppRoutes } from '../../constants';
 
 function FilmPage(): JSX.Element {
+  const navigate = useNavigate();
   const {id: idParam} = useParams();
   const film = FILMS.find(({id}) => id.toString() === idParam);
 
@@ -15,6 +17,8 @@ function FilmPage(): JSX.Element {
 
   const similarFilms = FILMS.filter(({genre}) => genre === film.genre);
   const reviewersNum = REVIEWS.length;
+  const onClickPlay = () => navigate(`/player/${idParam}`);
+  const onClickAdd = () => navigate(AppRoutes.MyList);
 
   return (
     <>
@@ -50,19 +54,19 @@ function FilmPage(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button className="btn btn--play film-card__button" type="button" onClick={onClickPlay}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s" />
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
+                <button className="btn btn--list film-card__button" type="button" onClick={onClickAdd}>
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add" />
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="#" className="btn film-card__button">Add review</a>
+                <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>

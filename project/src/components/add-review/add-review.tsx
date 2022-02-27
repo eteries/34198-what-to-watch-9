@@ -1,5 +1,5 @@
 import Logo from '../logo/logo';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FILMS } from '../../mocks/films';
 import NotFound from '../not-found/not-found';
 
@@ -26,7 +26,7 @@ function AddReview(): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href={`/films/${film.id}`} className="breadcrumbs__link">{film.name}</a>
+                <Link to={`/films/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
