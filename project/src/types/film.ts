@@ -13,7 +13,7 @@ export type Film = {
   genre: string,
   released: number,
   id: number,
-  isFavorite: false,
+  isFavorite: boolean,
   videoLink: string,
   previewVideoLink: string
 }

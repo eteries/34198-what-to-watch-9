@@ -15,13 +15,15 @@ type AppProps = {
 }
 
 function App({films}: AppProps): JSX.Element {
+  const favorites = films.filter(({isFavorite}) => isFavorite);
+
   return (
     <Router>
       <Routes>
         <Route path={AppRoutes.SignIn} element={<Login />} />
         <Route path={AppRoutes.MyList} element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-            <MyList />
+          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <MyList favorites={favorites}/>
           </PrivateRoute>
         }
         />
