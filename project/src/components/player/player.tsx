@@ -1,7 +1,20 @@
+import { FILMS } from '../../mocks/films';
+import { useParams } from 'react-router-dom';
+import NotFound from '../not-found/not-found';
+
 function Player(): JSX.Element {
+  const {id: idParam} = useParams();
+  const film = FILMS.find(({id}) => id.toString() === idParam);
+
+  if (film === undefined) {
+    return <NotFound />;
+  }
+
+  const {name, videoLink, backgroundImage} = film;
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg" />
+      <video src={videoLink} className="player__video" poster={backgroundImage} />
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -21,7 +34,7 @@ function Player(): JSX.Element {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Trainspotting</div>
+          <div className="player__name">{name}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
