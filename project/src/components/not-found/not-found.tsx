@@ -1,4 +1,5 @@
 import Logo from '../logo/logo';
+import { Link } from 'react-router-dom';
 
 function NotFound(): JSX.Element {
   return (
@@ -10,7 +11,7 @@ function NotFound(): JSX.Element {
           <div className="catalog__button">
             <b style={{fontSize: '64px'}}>404</b>
             <p style={{fontSize: '32px'}}>Not Found</p>
-            <a href="/" style={{fontSize: '24px', color: '#d9ca74'}}>Start from home page</a>
+            <Link to="/" style={{fontSize: '24px', color: '#d9ca74'}}>Start from home page</Link>
           </div>
         </div>
       </section>
