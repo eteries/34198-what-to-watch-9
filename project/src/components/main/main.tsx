@@ -2,13 +2,14 @@ import Logo from '../logo/logo';
 import FilmList from '../film-list/film-list';
 import { Film } from '../../types/film';
 import UserMenu from '../user-menu/user-menu';
+import FilmActions from '../film-actions/film-actions';
 
 type MainProps = {
   films: Film[]
 }
 
 function Main({films}: MainProps): JSX.Element {
-  const {name, genre, released, posterImage, backgroundImage} = films[0];
+  const {id, name, genre, released, posterImage, backgroundImage} = films[0];
   return (
     <>
       <section className="film-card">
@@ -38,18 +39,7 @@ function Main({films}: MainProps): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s" />
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add" />
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <FilmActions id={id} />
               </div>
             </div>
           </div>
