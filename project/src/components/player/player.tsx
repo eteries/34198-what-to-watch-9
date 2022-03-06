@@ -1,6 +1,8 @@
-import { FILMS } from '../../mocks/films';
 import { useParams } from 'react-router-dom';
+
 import NotFound from '../not-found/not-found';
+
+import { FILMS } from '../../mocks/films';
 
 function Player(): JSX.Element {
   const {id: idParam} = useParams();

@@ -1,9 +1,9 @@
 import { ChangeEvent, Fragment, useState } from 'react';
+import { Rating } from '../../constants';
 
 function ReviewForm(): JSX.Element {
-  const [rating, setRating] = useState(8);
+  const [rating, setRating] = useState(Rating.DefaultValue);
   const [review, setReview] = useState('');
-  const STARS_NUM = 10;
 
   return (
     <form action="#" className="add-review__form">
@@ -12,7 +12,7 @@ function ReviewForm(): JSX.Element {
           onChange={({target: {value}}: ChangeEvent<HTMLInputElement>) => setRating(parseInt(value, 10))}
         >
           {
-            new Array(STARS_NUM)
+            new Array(Rating.StarsNum)
               .fill(null)
               .map((value, index) => (index + 1))
               .reverse()
@@ -25,7 +25,10 @@ function ReviewForm(): JSX.Element {
                     value={value}
                     checked={rating === value}
                   />
-                  <label className="rating__label" htmlFor={`star-${value}`}>Rating {`star-${value}`}</label>
+                  <label className="rating__label"
+                    htmlFor={`star-${value}`}>
+                    Rating {`star-${value}`}
+                  </label>
                 </Fragment>
               ))
           }

@@ -1,6 +1,8 @@
-import { Film } from '../../types/film';
-import FilmCard from '../film-card/film-card';
 import { useState } from 'react';
+
+import FilmCard from '../film-card/film-card';
+
+import { Film } from '../../types/film';
 
 type FilmListProps = {
   films: Film[]
@@ -16,7 +18,11 @@ function FilmList({films}: FilmListProps): JSX.Element {
     <div className="catalog__films-list">
       {
         films.map((film) => (
-          <FilmCard key={film.id} film={film} onHover={handleOnHover} isActive={activeId === film.id} />
+          <FilmCard key={film.id}
+            film={film}
+            onHover={handleOnHover}
+            isActive={activeId === film.id}
+          />
         ))
       }
     </div>

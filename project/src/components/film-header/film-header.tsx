@@ -1,8 +1,10 @@
+import { Link, useNavigate } from 'react-router-dom';
+
 import Logo from '../logo/logo';
 import UserMenu from '../user-menu/user-menu';
-import { Film } from '../../types/film';
-import { Link, useNavigate } from 'react-router-dom';
+
 import { AppRoutes } from '../../constants';
+import { Film } from '../../types/film';
 
 type FilmHeaderProps = {
   film: Film

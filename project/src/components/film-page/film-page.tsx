@@ -1,11 +1,13 @@
-import Logo from '../logo/logo';
 import { Link, useParams } from 'react-router-dom';
+
+import FilmActions from '../film-actions/film-actions';
+import FilmList from '../film-list/film-list';
+import Logo from '../logo/logo';
+import NotFound from '../not-found/not-found';
+import UserMenu from '../user-menu/user-menu';
+
 import { FILMS } from '../../mocks/films';
 import { REVIEWS } from '../../mocks/reviews';
-import NotFound from '../not-found/not-found';
-import FilmList from '../film-list/film-list';
-import UserMenu from '../user-menu/user-menu';
-import FilmActions from '../film-actions/film-actions';
 
 function FilmPage(): JSX.Element {
   const {id: idParam} = useParams();

@@ -1,13 +1,15 @@
-import Main from '../main/main';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import NotFound from '../not-found/not-found';
-import { AppRoutes, AuthorizationStatus } from '../../constants';
-import Login from '../login/login';
-import MyList from '../my-list/my-list';
-import FilmPage from '../film-page/film-page';
+
 import AddReview from '../add-review/add-review';
+import FilmPage from '../film-page/film-page';
+import Login from '../login/login';
+import Main from '../main/main';
+import MyList from '../my-list/my-list';
+import NotFound from '../not-found/not-found';
 import Player from '../player/player';
 import PrivateRoute from '../private-route/private-route';
+
+import { AppRoutes, AuthorizationStatus } from '../../constants';
 import { Film } from '../../types/film';
 
 type AppProps = {

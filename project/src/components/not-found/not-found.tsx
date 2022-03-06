@@ -1,5 +1,6 @@
-import Logo from '../logo/logo';
 import { Link } from 'react-router-dom';
+
+import Logo from '../logo/logo';
 
 function NotFound(): JSX.Element {
   return (

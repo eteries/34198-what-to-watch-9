@@ -1,5 +1,6 @@
-import { AppRoutes } from '../../constants';
 import { useNavigate } from 'react-router-dom';
+
+import { AppRoutes } from '../../constants';
 
 type FilmActionsType = {
   id: number

@@ -1,7 +1,8 @@
-import Logo from '../logo/logo';
 import FilmList from '../film-list/film-list';
-import { Film } from '../../types/film';
+import Logo from '../logo/logo';
 import UserMenu from '../user-menu/user-menu';
+
+import { Film } from '../../types/film';
 
 type MyListProps = {
   favorites: Film[]
