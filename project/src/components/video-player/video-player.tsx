@@ -5,10 +5,12 @@ type VideoPlayerProps = {
   autoPlay: boolean;
   video: Film;
   showControls: boolean;
+  muted: boolean;
 }
 
-function VideoPlayer({autoPlay, video, showControls}: VideoPlayerProps): JSX.Element {
+function VideoPlayer({autoPlay, video, showControls, muted}: VideoPlayerProps): JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
 
   const {name, videoLink, previewImage} = video;
 
@@ -32,20 +34,13 @@ function VideoPlayer({autoPlay, video, showControls}: VideoPlayerProps): JSX.Ele
       return;
     }
 
-    if (autoPlay) {
+    if (isPlaying || autoPlay) {
       videoRef.current.play();
       return;
     }
 
     videoRef.current.pause();
-  }, [autoPlay]);
-
-  const play = () => {
-    if (videoRef.current !== null) {
-      videoRef.current.play()
-    }
-  }
-
+  }, [isPlaying, autoPlay]);
 
   return (
     <>
@@ -54,6 +49,7 @@ function VideoPlayer({autoPlay, video, showControls}: VideoPlayerProps): JSX.Ele
         className="player__video"
         poster={previewImage}
         ref={videoRef}
+        muted={muted}
       />
 
       {showControls &&
@@ -75,7 +71,7 @@ function VideoPlayer({autoPlay, video, showControls}: VideoPlayerProps): JSX.Ele
                 type="button"
                 className="player__play"
                 disabled={isLoading}
-                onClick={play}
+                onClick={() => setIsPlaying(!isPlaying)}
               >
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s" />

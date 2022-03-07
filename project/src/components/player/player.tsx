@@ -19,6 +19,7 @@ function Player(): JSX.Element {
         autoPlay={false}
         video={film}
         showControls
+        muted
       />
     </div>
   );

@@ -38,6 +38,7 @@ function FilmCard({film}: FilmCardProps): JSX.Element {
           autoPlay={isPlaying}
           video={film}
           showControls={false}
+          muted
         />
       </div>
       <h3 className="small-film-card__title">

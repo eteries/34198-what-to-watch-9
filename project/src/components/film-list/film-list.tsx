@@ -6,8 +6,6 @@ type FilmListProps = {
   films: Film[]
 }
 
-type ActiveId = null | number;
-
 function FilmList({films}: FilmListProps): JSX.Element {
   return (
     <div className="catalog__films-list">
