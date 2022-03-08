@@ -12,9 +12,7 @@ function useDelayedEffect(delay: number):[boolean, (isDoing: boolean) => void] {
 
     const timerId = setTimeout(() => setIsDoing(true), delay);
 
-    return () => {
-      clearInterval(timerId);
-    };
+    return () => clearTimeout(timerId);
 
   }, [isStarted]);
 

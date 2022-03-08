@@ -1,5 +1,4 @@
 import { Film } from '../../types/film';
-import { useNavigate } from 'react-router-dom';
 import useVideoPlayer from '../../hooks/use-video-player/use-video-player';
 
 type VideoPlayerProps = {
@@ -7,10 +6,16 @@ type VideoPlayerProps = {
   video: Film;
   showControls?: boolean;
   muted?: boolean;
+  onExit?: () => void
 }
 
-function VideoPlayer({autoPlay, video, showControls = true, muted = false}: VideoPlayerProps): JSX.Element {
-  const navigate = useNavigate();
+function VideoPlayer({
+  autoPlay,
+  video,
+  showControls = true,
+  muted = false,
+  onExit,
+}: VideoPlayerProps): JSX.Element {
   const player = useVideoPlayer(video, autoPlay, showControls);
   const {videoRef, getIsLoading, toggle, getCurrentProgress, duration} = player;
   const {name, videoLink, previewImage} = video;
@@ -31,7 +36,10 @@ function VideoPlayer({autoPlay, video, showControls = true, muted = false}: Vide
           <button
             type="button"
             className="player__exit"
-            onClick={() => navigate(-1)}>Exit</button>
+            onClick={onExit}
+          >
+            Exit
+          </button>
 
           <div className="player__controls">
             <div className="player__controls-row">
