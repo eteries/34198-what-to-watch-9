@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Film } from '../../types/film';
 import VideoPlayer from '../video-player/video-player';
 import { useEffect, useState } from 'react';
+import { VIDEO_PREVIEW_DELAY } from '../../constants';
 
 type FilmCardProps = {
   film: Film
@@ -19,7 +20,7 @@ function FilmCard({film}: FilmCardProps): JSX.Element {
       return;
     }
 
-    const timerId = setTimeout(() => setIsPlaying(true), 1000);
+    const timerId = setTimeout(() => setIsPlaying(true), VIDEO_PREVIEW_DELAY);
 
     return () => {
       clearInterval(timerId);
