@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 
-import { Film } from '../../types/film';
 import VideoPlayer from '../video-player/video-player';
-import { useEffect, useState } from 'react';
+
 import { VIDEO_PREVIEW_DELAY } from '../../constants';
+import useDelayedEffect from '../../hooks/use-delayed-effect/use-delayed-effect';
+import { Film } from '../../types/film';
 
 type FilmCardProps = {
   film: Film
@@ -11,28 +12,13 @@ type FilmCardProps = {
 
 function FilmCard({film}: FilmCardProps): JSX.Element {
   const {name, id} = film;
-  const [isHovered, setIsHovered] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  useEffect(() => {
-    if (!isHovered) {
-      setIsPlaying(false);
-      return;
-    }
-
-    const timerId = setTimeout(() => setIsPlaying(true), VIDEO_PREVIEW_DELAY);
-
-    return () => {
-      clearInterval(timerId);
-    };
-
-  }, [isHovered]);
+  const [isPlaying, setIsPlaying] = useDelayedEffect(VIDEO_PREVIEW_DELAY);
 
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseOver={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseOver={() => setIsPlaying(true)}
+      onMouseLeave={() => setIsPlaying(false)}
     >
       <div className="small-film-card__image">
         <VideoPlayer
