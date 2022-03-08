@@ -6,7 +6,7 @@ import Login from '../login/login';
 import Main from '../main/main';
 import MyList from '../my-list/my-list';
 import NotFound from '../not-found/not-found';
-import Player from '../player/player';
+import PlayerPage from '../player-page/player-page';
 import PrivateRoute from '../private-route/private-route';
 
 import { AppRoutes, AuthorizationStatus } from '../../constants';
@@ -31,7 +31,7 @@ function App({films}: AppProps): JSX.Element {
         />
         <Route path={AppRoutes.AddReview} element={<AddReview />} />
         <Route path={AppRoutes.Film} element={<FilmPage />} />
-        <Route path={AppRoutes.Player} element={<Player />} />
+        <Route path={AppRoutes.Player} element={<PlayerPage />} />
         <Route path={AppRoutes.Main} element={<Main films={films} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

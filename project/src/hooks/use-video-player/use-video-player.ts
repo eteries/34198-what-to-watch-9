@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+
 import { Film } from '../../types/film';
 import { Player } from '../../types/player';
 
-function UseVideoPlayer(video: Film, autoPlay: boolean, showControls:boolean): Player {
+function useVideoPlayer(video: Film, autoPlay: boolean, showControls:boolean): Player {
   const [isLoading, setIsLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [currentProgress, setCurrentProgress] = useState(0);
@@ -46,8 +47,6 @@ function UseVideoPlayer(video: Film, autoPlay: boolean, showControls:boolean): P
       return;
     }
 
-
-
     const fullScreenBtn = document.querySelector('.player__full-screen') as HTMLButtonElement;
 
     const onFullScreenClick = () => {
@@ -59,7 +58,7 @@ function UseVideoPlayer(video: Film, autoPlay: boolean, showControls:boolean): P
       if (document.exitFullscreen !== undefined) {
         document.exitFullscreen();
       }
-    }
+    };
 
     fullScreenBtn.addEventListener('click', onFullScreenClick);
 
@@ -74,12 +73,12 @@ function UseVideoPlayer(video: Film, autoPlay: boolean, showControls:boolean): P
       }
 
       setCurrentProgress(0);
-    }
+    };
 
     if (videoRef.current !== null) {
       videoRef.current.onplaying = onPlaying;
     }
-  })
+  });
 
   const getDuration = () => {
     if (videoRef.current !== null) {
@@ -87,7 +86,7 @@ function UseVideoPlayer(video: Film, autoPlay: boolean, showControls:boolean): P
     }
 
     return 0;
-  }
+  };
 
   return {
     videoRef,
@@ -97,7 +96,7 @@ function UseVideoPlayer(video: Film, autoPlay: boolean, showControls:boolean): P
     toggle: () => setIsPlaying(!isPlaying),
     getCurrentProgress: () => currentProgress,
     getIsLoading: () => isLoading,
-  }
+  };
 }
 
-export default UseVideoPlayer;
+export default useVideoPlayer;
