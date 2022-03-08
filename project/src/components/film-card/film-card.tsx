@@ -1,21 +1,40 @@
-import { Film } from '../../types/film';
 import { Link } from 'react-router-dom';
 
+import VideoPlayer from '../video-player/video-player';
+
+import { VIDEO_PREVIEW_DELAY } from '../../constants';
+import useDelayedEffect from '../../hooks/use-delayed-effect/use-delayed-effect';
+import { Film } from '../../types/film';
+
 type FilmCardProps = {
-  film: Film,
-  onHover: (id: number) => void,
-  isActive: boolean
+  film: Film
 }
 
-function FilmCard({film, onHover, isActive}: FilmCardProps): JSX.Element {
-  const {previewImage, name, id} = film;
+function FilmCard({film}: FilmCardProps): JSX.Element {
+  const {name, id} = film;
+  const [isPlaying, setIsPlaying] = useDelayedEffect(VIDEO_PREVIEW_DELAY);
+
   return (
-    <article className="small-film-card catalog__films-card" onMouseOver={() => onHover(id)}>
+    <article
+      className="small-film-card catalog__films-card"
+      onMouseOver={() => setIsPlaying(true)}
+      onMouseLeave={() => setIsPlaying(false)}
+    >
       <div className="small-film-card__image">
-        <img src={previewImage} alt={name} width="280" height="175"/>
+        <VideoPlayer
+          autoPlay={isPlaying}
+          video={film}
+          showControls={false}
+          muted
+        />
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}`}>{name}</Link>
+        <Link
+          className="small-film-card__link"
+          to={`/films/${id}`}
+        >
+          {name}
+        </Link>
       </h3>
     </article>
   );

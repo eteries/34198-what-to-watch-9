@@ -12,3 +12,10 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export enum Rating {
+  DefaultValue = 8,
+  StarsNum = 10,
+}
+
+export const VIDEO_PREVIEW_DELAY = 1000;

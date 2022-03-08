@@ -1,8 +1,9 @@
 import Logo from '../logo/logo';
-import FilmList from '../film-list/film-list';
-import { Film } from '../../types/film';
-import UserMenu from '../user-menu/user-menu';
 import FilmActions from '../film-actions/film-actions';
+import FilmList from '../film-list/film-list';
+import UserMenu from '../user-menu/user-menu';
+
+import { Film } from '../../types/film';
 
 type MainProps = {
   films: Film[]

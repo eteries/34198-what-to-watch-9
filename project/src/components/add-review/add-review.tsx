@@ -1,9 +1,11 @@
-import Logo from '../logo/logo';
 import { Link, useParams } from 'react-router-dom';
-import { FILMS } from '../../mocks/films';
+
+import Logo from '../logo/logo';
 import NotFound from '../not-found/not-found';
-import UserMenu from '../user-menu/user-menu';
 import ReviewForm from '../review-form/review-form';
+import UserMenu from '../user-menu/user-menu';
+
+import { FILMS } from '../../mocks/films';
 
 function AddReview(): JSX.Element {
   const {id: idParam} = useParams();
