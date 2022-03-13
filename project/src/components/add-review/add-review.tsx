@@ -5,11 +5,12 @@ import NotFound from '../not-found/not-found';
 import ReviewForm from '../review-form/review-form';
 import UserMenu from '../user-menu/user-menu';
 
-import { FILMS } from '../../mocks/films';
+import { useAppSelector } from '../../hooks';
 
 function AddReview(): JSX.Element {
   const {id: idParam} = useParams();
-  const film = FILMS.find(({id}) => id.toString() === idParam);
+  const films = useAppSelector((state) => state.films);
+  const film = films.find(({id}) => id.toString() === idParam);
 
   if (film === undefined) {
     return <NotFound />;

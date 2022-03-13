@@ -6,19 +6,19 @@ import Logo from '../logo/logo';
 import NotFound from '../not-found/not-found';
 import UserMenu from '../user-menu/user-menu';
 
-import { FILMS } from '../../mocks/films';
-import { REVIEWS } from '../../mocks/reviews';
+import { useAppSelector } from '../../hooks';
 
 function FilmPage(): JSX.Element {
   const {id: idParam} = useParams();
-  const film = FILMS.find(({id}) => id.toString() === idParam);
+  const {films, reviews} = useAppSelector((state) => state);
+  const film = films.find(({id}) => id.toString() === idParam);
 
   if (film === undefined) {
     return <NotFound />;
   }
 
-  const similarFilms = FILMS.filter(({genre}) => genre === film.genre);
-  const reviewersNum = REVIEWS.length;
+  const similarFilms = films.filter(({genre}) => genre === film.genre);
+  const reviewersNum = reviews.length;
 
   return (
     <>

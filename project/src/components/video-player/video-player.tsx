@@ -2,21 +2,21 @@ import { Film } from '../../types/film';
 import useVideoPlayer from '../../hooks/use-video-player/use-video-player';
 
 type VideoPlayerProps = {
-  autoPlay: boolean;
+  hasAutoPlay: boolean;
   video: Film;
   showControls?: boolean;
-  muted?: boolean;
+  isMuted?: boolean;
   onExit?: () => void
 }
 
 function VideoPlayer({
-  autoPlay,
+  hasAutoPlay,
   video,
   showControls = true,
-  muted = false,
+  isMuted = false,
   onExit,
 }: VideoPlayerProps): JSX.Element {
-  const player = useVideoPlayer(video, autoPlay, showControls);
+  const player = useVideoPlayer(video, hasAutoPlay, showControls);
   const {videoRef, getIsLoading, toggle, getCurrentProgress, duration} = player;
   const {name, videoLink, previewImage} = video;
 
@@ -27,7 +27,7 @@ function VideoPlayer({
         className="player__video"
         poster={previewImage}
         ref={videoRef}
-        muted={muted}
+        muted={isMuted}
       />
 
       {showControls &&

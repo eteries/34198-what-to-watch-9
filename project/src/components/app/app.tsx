@@ -10,13 +10,10 @@ import PlayerPage from '../player-page/player-page';
 import PrivateRoute from '../private-route/private-route';
 
 import { AppRoutes, AuthorizationStatus } from '../../constants';
-import { Film } from '../../types/film';
+import { useAppSelector } from '../../hooks';
 
-type AppProps = {
-  films: Film[]
-}
-
-function App({films}: AppProps): JSX.Element {
+function App(): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   const favorites = films.filter(({isFavorite}) => isFavorite);
 
   return (
@@ -32,7 +29,7 @@ function App({films}: AppProps): JSX.Element {
         <Route path={AppRoutes.AddReview} element={<AddReview />} />
         <Route path={AppRoutes.Film} element={<FilmPage />} />
         <Route path={AppRoutes.Player} element={<PlayerPage />} />
-        <Route path={AppRoutes.Main} element={<Main films={films} />} />
+        <Route path={AppRoutes.Main} element={<Main />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

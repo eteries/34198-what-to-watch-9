@@ -22,10 +22,10 @@ function FilmCard({film}: FilmCardProps): JSX.Element {
     >
       <div className="small-film-card__image">
         <VideoPlayer
-          autoPlay={isPlaying}
+          hasAutoPlay={isPlaying}
           video={film}
           showControls={false}
-          muted
+          isMuted
         />
       </div>
       <h3 className="small-film-card__title">

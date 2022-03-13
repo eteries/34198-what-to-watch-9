@@ -3,11 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import NotFound from '../not-found/not-found';
 import VideoPlayer from '../video-player/video-player';
 
-import { FILMS } from '../../mocks/films';
+import { useAppSelector } from '../../hooks';
 
 function PlayerPage(): JSX.Element {
   const {id: idParam} = useParams();
-  const film = FILMS.find(({id}) => id.toString() === idParam);
+  const films = useAppSelector((state) => state.films);
+  const film = films.find(({id}) => id.toString() === idParam);
   const navigate = useNavigate();
 
   if (film === undefined) {
@@ -17,10 +18,10 @@ function PlayerPage(): JSX.Element {
   return (
     <div className="player">
       <VideoPlayer
-        autoPlay={false}
+        hasAutoPlay={false}
         video={film}
         showControls
-        muted
+        isMuted
         onExit={() => navigate(-1)}
       />
     </div>
