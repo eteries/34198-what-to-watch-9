@@ -19,3 +19,5 @@ export enum Rating {
 }
 
 export const VIDEO_PREVIEW_DELAY = 1000;
+
+export const ALL_GENRES = 'All genres';
