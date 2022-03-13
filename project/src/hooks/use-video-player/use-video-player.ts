@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from 'react';
 import { Film } from '../../types/film';
 import { Player } from '../../types/player';
 
-function useVideoPlayer(video: Film, autoPlay: boolean, showControls:boolean): Player {
+function useVideoPlayer(video: Film, hasAutoPlay: boolean, showControls:boolean): Player {
   const [isLoading, setIsLoading] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(autoPlay);
+  const [isPlaying, setIsPlaying] = useState(hasAutoPlay);
   const [currentProgress, setCurrentProgress] = useState(0);
 
   const {videoLink} = video;
@@ -30,7 +30,7 @@ function useVideoPlayer(video: Film, autoPlay: boolean, showControls:boolean): P
       return;
     }
 
-    if (isPlaying || autoPlay) {
+    if (isPlaying || hasAutoPlay) {
       videoRef.current.play();
       return;
     }
@@ -40,7 +40,7 @@ function useVideoPlayer(video: Film, autoPlay: boolean, showControls:boolean): P
     if (!showControls) {
       videoRef.current.load();
     }
-  }, [isPlaying, autoPlay]);
+  }, [isPlaying, hasAutoPlay]);
 
   useEffect(() => {
     if (!showControls) {
@@ -66,7 +66,7 @@ function useVideoPlayer(video: Film, autoPlay: boolean, showControls:boolean): P
   });
 
   useEffect(() => {
-    const onPlaying = ():void => {
+    const onTimeUpdate = ():void => {
       if (videoRef.current !== null) {
         setCurrentProgress(videoRef.current.currentTime / videoRef.current.duration * 100);
         return;
@@ -76,7 +76,7 @@ function useVideoPlayer(video: Film, autoPlay: boolean, showControls:boolean): P
     };
 
     if (videoRef.current !== null) {
-      videoRef.current.onplaying = onPlaying;
+      videoRef.current.ontimeupdate = onTimeUpdate;
     }
   });
 
