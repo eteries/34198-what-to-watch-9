@@ -10,7 +10,6 @@ export const fetchQuestionAction = createAsyncThunk(
   'data/fetchFilms',
   async () => {
     const {data} = await api.get<Film[]>(ApiRoutes.Films);
-    console.log(data);
     store.dispatch(loadFilms(data));
   },
 );

@@ -8,6 +8,7 @@ export type State = {
   films: Film[],
   filteredFilms: Film[],
   reviews: Review[],
+  isDataLoaded: boolean,
 }
 
 export type AppDispatch = typeof store.dispatch;
