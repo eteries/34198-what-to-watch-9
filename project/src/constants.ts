@@ -7,6 +7,16 @@ export enum AppRoutes {
   Player = '/player/:id',
 }
 
+export enum ApiRoutes {
+  Films = '/films',
+  Similar = '/similar',
+  Promo = '/promo',
+  Favorites = '/favorite',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = 'logout'
+}
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',

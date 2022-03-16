@@ -1,6 +1,8 @@
 import {createAction} from '@reduxjs/toolkit';
 
-export const loadFilms = createAction('films/load');
+import { Film } from '../types/film';
+
+export const loadFilms = createAction<Film[]>('films/load');
 
 export const loadReviews = createAction('films/loadReviews');
 

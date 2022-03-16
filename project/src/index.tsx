@@ -4,6 +4,9 @@ import { Provider } from 'react-redux';
 
 import App from './components/app/app';
 import { store } from './store';
+import { fetchQuestionAction } from './store/async-actions';
+
+store.dispatch(fetchQuestionAction());
 
 ReactDOM.render(
   <React.StrictMode>
