@@ -12,9 +12,15 @@ function useVideoPlayer(video: Film, hasAutoPlay: boolean, showControls:boolean)
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
+  const onLoadedData = () => {
+    if (videoRef.current !== null) {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (videoRef.current !== null) {
-      videoRef.current.onloadeddata = () => setIsLoading(false);
+      videoRef.current.onloadeddata = onLoadedData;
     }
 
     return () => {
@@ -71,13 +77,17 @@ function useVideoPlayer(video: Film, hasAutoPlay: boolean, showControls:boolean)
         setCurrentProgress(videoRef.current.currentTime / videoRef.current.duration * 100);
         return;
       }
-
-      setCurrentProgress(0);
     };
 
     if (videoRef.current !== null) {
       videoRef.current.ontimeupdate = onTimeUpdate;
     }
+
+    return () => {
+      if (videoRef.current !== null) {
+        videoRef.current.ontimeupdate = null;
+      }
+    };
   });
 
   const getDuration = () => {
