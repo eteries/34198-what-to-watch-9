@@ -21,7 +21,9 @@ function App(): JSX.Element {
 
   if (!isDataLoaded) {
     return (
-      <Loading />
+      <div style={{ backgroundColor: '#180202', minHeight: '100vh'}}>
+        <Loading />
+      </div>
     );
   }
 

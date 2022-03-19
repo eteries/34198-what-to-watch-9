@@ -1,6 +1,6 @@
 function Loading(): JSX.Element {
   return (
-    <div style={{backgroundColor: '#180202', minHeight: '100vh', display: 'flex'}}>
+    <div style={{position: 'absolute', width: '100%', height: '100%', display: 'flex'}}>
       <svg xmlns="http://www.w3.org/2000/svg" style={{margin: 'auto'}} width="100" height="100" viewBox="0 0 100 100" overflow="visible"
            fill="#dfcf77">
         <defs>
