@@ -17,8 +17,8 @@ function FilmCard({film}: FilmCardProps): JSX.Element {
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseEnter={() => {setIsPlaying(true)}}
-      onMouseLeave={() => {setIsPlaying(false)}}
+      onMouseEnter={() => setIsPlaying(true)}
+      onMouseLeave={() => setIsPlaying(false)}
     >
       <div className="small-film-card__image">
         <VideoPlayer

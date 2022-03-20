@@ -10,7 +10,7 @@ const initialState: State = {
   films: [],
   filteredFilms: [],
   reviews: [],
-  isDataLoaded: false
+  isDataLoaded: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {

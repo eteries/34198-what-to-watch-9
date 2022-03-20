@@ -75,7 +75,7 @@ function useVideoPlayer(video: Film, hasAutoPlay: boolean, showControls:boolean)
     const onTimeUpdate = ():void => {
       if (videoRef.current !== null) {
         setCurrentProgress(videoRef.current.currentTime / videoRef.current.duration * 100);
-        return;
+
       }
     };
 
