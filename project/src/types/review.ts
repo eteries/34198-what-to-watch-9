@@ -1,4 +1,4 @@
-import { User } from '../mocks/user';
+import { User } from './user';
 
 export type Review = {
   id: number,

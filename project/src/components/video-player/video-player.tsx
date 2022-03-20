@@ -1,5 +1,6 @@
 import { Film } from '../../types/film';
 import useVideoPlayer from '../../hooks/use-video-player/use-video-player';
+import Loading from '../loading/loading';
 
 type VideoPlayerProps = {
   hasAutoPlay: boolean;
@@ -22,6 +23,7 @@ function VideoPlayer({
 
   return (
     <>
+      {getIsLoading() && <Loading />}
       <video
         src={videoLink}
         className="player__video"

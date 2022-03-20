@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import AddReview from '../add-review/add-review';
 import FilmPage from '../film-page/film-page';
+import Loading from '../loading/loading';
 import Login from '../login/login';
 import Main from '../main/main';
 import MyList from '../my-list/my-list';
@@ -15,6 +16,16 @@ import { useAppSelector } from '../../hooks';
 function App(): JSX.Element {
   const films = useAppSelector((state) => state.films);
   const favorites = films.filter(({isFavorite}) => isFavorite);
+
+  const {isDataLoaded} = useAppSelector((state) => state);
+
+  if (!isDataLoaded) {
+    return (
+      <div style={{ backgroundColor: '#180202', minHeight: '100vh'}}>
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <Router>
