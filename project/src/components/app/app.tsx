@@ -14,7 +14,7 @@ import { AppRoutes, AuthorizationStatus } from '../../constants';
 import { useAppSelector } from '../../hooks';
 
 function App(): JSX.Element {
-  const films = useAppSelector((state) => state.films);
+  const {films, authorizationStatus} = useAppSelector((state) => state);
   const favorites = films.filter(({isFavorite}) => isFavorite);
 
   const {isDataLoaded} = useAppSelector((state) => state);
@@ -32,7 +32,7 @@ function App(): JSX.Element {
       <Routes>
         <Route path={AppRoutes.SignIn} element={<Login />} />
         <Route path={AppRoutes.MyList} element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+          <PrivateRoute authorizationStatus={authorizationStatus}>
             <MyList favorites={favorites}/>
           </PrivateRoute>
         }

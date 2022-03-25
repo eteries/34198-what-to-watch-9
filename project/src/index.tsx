@@ -4,9 +4,10 @@ import { Provider } from 'react-redux';
 
 import App from './components/app/app';
 import { store } from './store';
-import { fetchFilmsAction } from './store/async-actions';
+import { checkAuthAction, fetchFilmsAction } from './store/async-actions';
 
 store.dispatch(fetchFilmsAction());
+store.dispatch(checkAuthAction());
 
 ReactDOM.render(
   <React.StrictMode>
