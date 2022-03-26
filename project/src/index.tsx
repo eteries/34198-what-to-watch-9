@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import App from './components/app/app';
 import { store } from './store';
-import { fetchFilmsAction } from './store/async-actions';
+import { checkAuthAction, fetchFilmsAction } from './store/async-actions';
 
 store.dispatch(fetchFilmsAction());
+store.dispatch(checkAuthAction());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToastContainer />
       <App />
     </Provider>
   </React.StrictMode>,

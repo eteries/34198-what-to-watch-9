@@ -1,7 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import AddReview from '../add-review/add-review';
 import FilmPage from '../film-page/film-page';
+import Router from '../history-router/history-router';
 import Loading from '../loading/loading';
 import Login from '../login/login';
 import Main from '../main/main';
@@ -10,11 +11,12 @@ import NotFound from '../not-found/not-found';
 import PlayerPage from '../player-page/player-page';
 import PrivateRoute from '../private-route/private-route';
 
-import { AppRoutes, AuthorizationStatus } from '../../constants';
+import { AppRoutes } from '../../constants';
 import { useAppSelector } from '../../hooks';
+import browserHistory from '../../services/browser-history';
 
 function App(): JSX.Element {
-  const films = useAppSelector((state) => state.films);
+  const {films, authorizationStatus} = useAppSelector((state) => state);
   const favorites = films.filter(({isFavorite}) => isFavorite);
 
   const {isDataLoaded} = useAppSelector((state) => state);
@@ -28,11 +30,11 @@ function App(): JSX.Element {
   }
 
   return (
-    <Router>
+    <Router history={browserHistory}>
       <Routes>
         <Route path={AppRoutes.SignIn} element={<Login />} />
         <Route path={AppRoutes.MyList} element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+          <PrivateRoute authorizationStatus={authorizationStatus}>
             <MyList favorites={favorites}/>
           </PrivateRoute>
         }

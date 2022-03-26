@@ -8,6 +8,7 @@ import { ALL_GENRES } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { filterFilms } from '../../store/actions';
 import { mapToUniqueKeys } from '../../utils';
+import Footer from '../footer/footer';
 
 function Main(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -37,13 +38,7 @@ function Main(): JSX.Element {
           </div>
         </section>
 
-        <footer className="page-footer">
-          <Logo theme="light" />
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

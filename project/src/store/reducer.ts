@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { changeGenre, filterFilms, loadFilms, loadReviews } from './actions';
+import { changeAuthStatus, changeGenre, filterFilms, loadFilms, loadReviews, loadUserInfo } from './actions';
 
-import { ALL_GENRES } from '../constants';
+import { ALL_GENRES, AuthorizationStatus } from '../constants';
 import { State } from '../types/state';
 
 const initialState: State = {
@@ -11,6 +11,8 @@ const initialState: State = {
   filteredFilms: [],
   reviews: [],
   isDataLoaded: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  user: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -21,7 +23,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadReviews, (state: State, {payload}) => {
       state.reviews = payload;
-
+    })
+    .addCase(loadUserInfo, (state: State, {payload}) => {
+      state.user = payload;
     })
     .addCase(changeGenre, (state, {payload}) => {
       state.genre = payload;
@@ -30,6 +34,9 @@ const reducer = createReducer(initialState, (builder) => {
       state.genre === ALL_GENRES
         ? state.filteredFilms = state.films
         : state.filteredFilms = state.films.filter(({genre}) => genre === state.genre);
+    })
+    .addCase(changeAuthStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 

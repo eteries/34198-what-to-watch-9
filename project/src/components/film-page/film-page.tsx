@@ -7,6 +7,7 @@ import NotFound from '../not-found/not-found';
 import UserMenu from '../user-menu/user-menu';
 
 import { useAppSelector } from '../../hooks';
+import Footer from '../footer/footer';
 
 function FilmPage(): JSX.Element {
   const {id: idParam} = useParams();
@@ -105,13 +106,7 @@ function FilmPage(): JSX.Element {
           <FilmList films={similarFilms} />
         </section>
 
-        <footer className="page-footer">
-          <Logo theme="light" />
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );
