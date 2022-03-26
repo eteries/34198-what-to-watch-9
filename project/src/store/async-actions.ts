@@ -37,7 +37,7 @@ export const checkAuthAction = createAsyncThunk(
 
 export const loginAction = createAsyncThunk(
   'user/login',
-  async ({login: email, password}: AuthData) => {
+  async ({email: email, password}: AuthData) => {
     const {data: {token, ...user}} = await api.post<UserData>(ApiRoutes.Login, {email, password});
     saveToken(token);
     store.dispatch(changeAuthStatus(AuthorizationStatus.Auth));
