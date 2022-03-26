@@ -1,7 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import AddReview from '../add-review/add-review';
 import FilmPage from '../film-page/film-page';
+import Router from '../history-router/history-router'
 import Loading from '../loading/loading';
 import Login from '../login/login';
 import Main from '../main/main';
@@ -12,6 +13,7 @@ import PrivateRoute from '../private-route/private-route';
 
 import { AppRoutes, AuthorizationStatus } from '../../constants';
 import { useAppSelector } from '../../hooks';
+import browserHistory from '../../services/browser-history';
 
 function App(): JSX.Element {
   const {films, authorizationStatus} = useAppSelector((state) => state);
@@ -28,7 +30,7 @@ function App(): JSX.Element {
   }
 
   return (
-    <Router>
+    <Router history={browserHistory}>
       <Routes>
         <Route path={AppRoutes.SignIn} element={<Login />} />
         <Route path={AppRoutes.MyList} element={

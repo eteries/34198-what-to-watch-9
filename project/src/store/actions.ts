@@ -1,8 +1,8 @@
-import {createAction} from '@reduxjs/toolkit';
+import { createAction } from '@reduxjs/toolkit';
 
 import { Film } from '../types/film';
 import { Review } from '../types/review';
-import { AuthorizationStatus } from '../constants';
+import { AppRoutes, AuthorizationStatus } from '../constants';
 import { User } from '../types/user';
 
 export const loadFilms = createAction<Film[]>('films/load');
@@ -16,3 +16,5 @@ export const changeGenre = createAction<string>('films/changeGenre');
 export const filterFilms = createAction('films/filter');
 
 export const changeAuthStatus = createAction<AuthorizationStatus>('user/changeAuthStatus');
+
+export const redirectToRoute = createAction<AppRoutes>('app/redirectToRoute');

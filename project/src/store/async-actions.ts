@@ -1,11 +1,11 @@
 import { api, store } from './index';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { changeAuthStatus, filterFilms, loadFilms, loadReviews, loadUserInfo } from './actions';
+import { changeAuthStatus, filterFilms, loadFilms, loadReviews, loadUserInfo, redirectToRoute } from './actions';
 
-import { ApiRoutes, AuthorizationStatus } from '../constants';
-import { Film } from '../types/film';
+import { ApiRoutes, AppRoutes, AuthorizationStatus } from '../constants';
 import { dropToken, saveToken } from '../services/token';
+import { Film } from '../types/film';
 import { AuthData } from '../types/auth-data';
 import { Review } from '../types/review';
 import { UserData } from '../types/user-data';
@@ -42,6 +42,7 @@ export const loginAction = createAsyncThunk(
     saveToken(token);
     store.dispatch(changeAuthStatus(AuthorizationStatus.Auth));
     store.dispatch(loadUserInfo(user));
+    store.dispatch(redirectToRoute(AppRoutes.MyList));
   },
 );
 
