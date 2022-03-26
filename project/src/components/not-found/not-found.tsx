@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import Logo from '../logo/logo';
+import Footer from '../footer/footer';
 
 function NotFound(): JSX.Element {
   return (
@@ -17,13 +17,7 @@ function NotFound(): JSX.Element {
         </div>
       </section>
 
-      <footer className="page-footer">
-        <Logo theme="light" />
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

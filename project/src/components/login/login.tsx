@@ -1,4 +1,5 @@
 import { FormEvent, useRef } from 'react';
+import { toast } from 'react-toastify';
 
 import Logo from '../logo/logo';
 import UserMenu from '../user-menu/user-menu';
@@ -6,6 +7,7 @@ import UserMenu from '../user-menu/user-menu';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/async-actions';
 import { AuthData } from '../../types/auth-data';
+import Footer from '../footer/footer';
 
 function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -21,9 +23,18 @@ function Login(): JSX.Element {
     evt.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
+
+      const email = emailRef.current.value.trim();
+      const password = passwordRef.current.value.trim();
+
+      if (email === '' || password === '') {
+        toast.error('Email and passport cannot be empty or consist of spaces');
+        return;
+      }
+
       onSubmit({
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
+        email,
+        password,
       });
     }
   };
@@ -46,6 +57,7 @@ function Login(): JSX.Element {
             <div className="sign-in__field">
               <input
                 ref={emailRef}
+                required
                 className="sign-in__input"
                 type="email"
                 placeholder="Email address"
@@ -57,6 +69,7 @@ function Login(): JSX.Element {
             <div className="sign-in__field">
               <input
                 ref={passwordRef}
+                required
                 className="sign-in__input"
                 type="password"
                 placeholder="Password"
@@ -74,13 +87,7 @@ function Login(): JSX.Element {
         </form>
       </div>
 
-      <footer className="page-footer">
-        <Logo theme="light" />
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

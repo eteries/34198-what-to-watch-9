@@ -40,8 +40,9 @@ export const checkAuthAction = createAsyncThunk(
   'user/checkAuth',
   async () => {
     try {
-      await api.get(ApiRoutes.Login);
+      const {data: {token, ...user}} = await api.get(ApiRoutes.Login);
       store.dispatch(changeAuthStatus(AuthorizationStatus.Auth));
+      store.dispatch(loadUserInfo(user));
     } catch(err) {
       errorHandle(err);
     }
@@ -50,7 +51,7 @@ export const checkAuthAction = createAsyncThunk(
 
 export const loginAction = createAsyncThunk(
   'user/login',
-  async ({email: email, password}: AuthData) => {
+  async ({email, password}: AuthData) => {
     try {
       const {data: {token, ...user}} = await api.post<UserData>(ApiRoutes.Login, {email, password});
       saveToken(token);

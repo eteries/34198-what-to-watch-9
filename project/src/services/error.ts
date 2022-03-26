@@ -14,13 +14,13 @@ export const errorHandle = (error: ErrorType): void => {
   if (response) {
     switch (response.status) {
       case HTTP_CODE.BAD_REQUEST:
-        toast.info(response.data.error);
+        toast.error(response.data.error);
         break;
       case HTTP_CODE.UNAUTHORIZED:
-        toast.info(response.data.error);
+        toast.error(response.data.error);
         break;
       case HTTP_CODE.NOT_FOUND:
-        toast.info(response.data.error);
+        toast.error(response.data.error);
         break;
     }
   }

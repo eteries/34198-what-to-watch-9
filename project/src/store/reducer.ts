@@ -12,7 +12,7 @@ const initialState: State = {
   reviews: [],
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.Unknown,
-  user: null
+  user: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {

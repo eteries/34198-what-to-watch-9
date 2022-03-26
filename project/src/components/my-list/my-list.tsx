@@ -3,6 +3,7 @@ import Logo from '../logo/logo';
 import UserMenu from '../user-menu/user-menu';
 
 import { Film } from '../../types/film';
+import Footer from '../footer/footer';
 
 type MyListProps = {
   favorites: Film[]
@@ -25,13 +26,7 @@ function MyList({favorites}: MyListProps): JSX.Element {
         <FilmList films={favorites} />
       </section>
 
-      <footer className="page-footer">
-        <Logo theme="light" />
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

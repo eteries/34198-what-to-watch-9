@@ -14,7 +14,7 @@ function UserMenu(): JSX.Element {
     evt.preventDefault();
     dispatch(logoutAction());
     dispatch(redirectToRoute(AppRoutes.Main));
-  }
+  };
 
   const loggedInTemplate = (
     <ul className="user-block">

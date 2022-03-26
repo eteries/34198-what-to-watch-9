@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import AddReview from '../add-review/add-review';
 import FilmPage from '../film-page/film-page';
-import Router from '../history-router/history-router'
+import Router from '../history-router/history-router';
 import Loading from '../loading/loading';
 import Login from '../login/login';
 import Main from '../main/main';
@@ -11,7 +11,7 @@ import NotFound from '../not-found/not-found';
 import PlayerPage from '../player-page/player-page';
 import PrivateRoute from '../private-route/private-route';
 
-import { AppRoutes, AuthorizationStatus } from '../../constants';
+import { AppRoutes } from '../../constants';
 import { useAppSelector } from '../../hooks';
 import browserHistory from '../../services/browser-history';
 
