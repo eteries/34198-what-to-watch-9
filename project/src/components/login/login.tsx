@@ -19,7 +19,6 @@ function Login(): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    console.log(evt);
 
     if (emailRef.current !== null && passwordRef.current !== null) {
       onSubmit({

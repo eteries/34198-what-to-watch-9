@@ -31,3 +31,9 @@ export enum Rating {
 export const VIDEO_PREVIEW_DELAY = 1000;
 
 export const ALL_GENRES = 'All genres';
+
+export enum HTTP_CODE {
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  NOT_FOUND = 404,
+}
