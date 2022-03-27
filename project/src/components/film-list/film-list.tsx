@@ -3,7 +3,7 @@ import FilmCard from '../film-card/film-card';
 import { Film } from '../../types/film';
 
 type FilmListProps = {
-  films: Film[]
+  films: Film[];
 }
 
 function FilmList({films}: FilmListProps): JSX.Element {

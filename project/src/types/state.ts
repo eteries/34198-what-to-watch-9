@@ -6,13 +6,13 @@ import { store } from '../store/';
 import { User } from './user';
 
 export type State = {
-  genre: string,
-  films: Film[],
-  filteredFilms: Film[],
-  reviews: Review[],
-  isDataLoaded: boolean,
-  authorizationStatus: AuthorizationStatus,
-  user: User | null
+  genre: string;
+  films: Film[];
+  filteredFilms: Film[];
+  reviews: Review[];
+  isDataLoaded: boolean;
+  authorizationStatus: AuthorizationStatus;
+  user: User | null;
 }
 
 export type AppDispatch = typeof store.dispatch;

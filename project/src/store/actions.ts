@@ -1,8 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
 
+import { AppRoutes, AuthorizationStatus } from '../constants';
 import { Film } from '../types/film';
 import { Review } from '../types/review';
-import { AppRoutes, AuthorizationStatus } from '../constants';
 import { User } from '../types/user';
 
 export const loadFilms = createAction<Film[]>('films/load');

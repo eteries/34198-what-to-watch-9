@@ -1,6 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { changeAuthStatus, changeGenre, filterFilms, loadFilms, loadReviews, loadUserInfo } from './actions';
+import {
+  changeAuthStatus,
+  changeGenre,
+  filterFilms,
+  loadFilms,
+  loadReviews,
+  loadUserInfo
+} from './actions';
 
 import { ALL_GENRES, AuthorizationStatus } from '../constants';
 import { State } from '../types/state';

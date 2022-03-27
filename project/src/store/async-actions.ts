@@ -26,7 +26,7 @@ export const fetchFilmsAction = createAsyncThunk(
 
 export const fetchReviewsAction = createAsyncThunk(
   'data/fetchReviews',
-  async (id: Pick<Film, 'id'>) => {
+  async (id: number) => {
     try {
       const {data} = await api.get<Review[]>(`${ApiRoutes.Comments}/${id}`);
       store.dispatch(loadReviews(data));

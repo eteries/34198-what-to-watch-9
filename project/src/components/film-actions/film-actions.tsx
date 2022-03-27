@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../constants';
 
 type FilmActionsType = {
-  id: number
+  id: number;
 }
 
 function FilmActions({id}: FilmActionsType): JSX.Element {
