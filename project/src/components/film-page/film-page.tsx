@@ -1,32 +1,40 @@
 import { Link, useParams } from 'react-router-dom';
 
 import FilmActions from '../film-actions/film-actions';
+import FilmDescription from '../film-description/film-description';
 import FilmList from '../film-list/film-list';
+import Footer from '../footer/footer';
 import Logo from '../logo/logo';
 import NotFound from '../not-found/not-found';
 import UserMenu from '../user-menu/user-menu';
 
-import { useAppSelector } from '../../hooks';
-import Footer from '../footer/footer';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchReviewsAction } from '../../store/async-actions';
+import { useEffect } from 'react';
 
 function FilmPage(): JSX.Element {
   const {id: idParam} = useParams();
-  const {films, reviews} = useAppSelector((state) => state);
+  const films = useAppSelector(({films}) => films);
   const film = films.find(({id}) => id.toString() === idParam);
 
   if (film === undefined) {
     return <NotFound />;
   }
 
+  const dispatch = useAppDispatch();
   const similarFilms = films.filter(({genre}) => genre === film.genre);
-  const reviewersNum = reviews.length;
+
+  useEffect(() => {
+    dispatch(fetchReviewsAction(film.id));
+    scroll(0, 0);
+  }, [film.id]);
 
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.backgroundImage} alt={film.name} />
+            <img src={film.backgroundImage} alt={film.name} key={film.backgroundImage} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -62,39 +70,7 @@ function FilmPage(): JSX.Element {
               />
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">{film.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">{reviewersNum} ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{film.description}</p>
-
-                <p className="film-card__director"><strong>Director: {film.director}</strong></p>
-
-                <p className="film-card__starring">
-                  <strong>Starring: {film.starring.join(', ')} and other</strong>
-                </p>
-              </div>
-            </div>
+            <FilmDescription film={film} />
           </div>
         </div>
       </section>

@@ -12,3 +12,13 @@ export const mapToUniqueKeys = (
       return uniqueKeys;
     }, [initialValue])
 );
+
+export const splitArray = <T>(arr: T[]):T[][] => {
+  if (arr.length < 2) {
+    return [arr, []];
+  }
+
+  const middleElem = Math.ceil(arr.length / 2);
+
+  return [arr.slice(0, middleElem), arr.slice((middleElem))]
+}
