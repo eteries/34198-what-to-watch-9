@@ -15,12 +15,12 @@ type FilmDescriptionProps = {
 
 function FilmDescription({film}: FilmDescriptionProps): JSX.Element {
   const [activeTab, setActiveTab] = useState<string>(FilmTabsList.Overview);
-  const reviews = useAppSelector(({reviews}) => reviews);
+  const {reviews} = useAppSelector((state) => state);
   const tabs = Object.keys(FilmTabsList);
 
   useEffect(() => {
     setActiveTab(FilmTabsList.Overview);
-  }, [film])
+  }, [film]);
 
   return (
     <div className="film-card__desc">

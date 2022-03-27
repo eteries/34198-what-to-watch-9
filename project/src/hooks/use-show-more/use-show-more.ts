@@ -14,11 +14,11 @@ function UseShowMore<T>(arr: T[], chunkSize: number): [T[], boolean, ()=> void] 
     setVisibleItems(arr.slice(0, index));
     setIsButtonShown(true);
     setCurrentIndex(index + chunkSize);
-  }
+  };
 
   useEffect(() => {
     showMore();
-  },[arr])
+  },[arr]);
 
   return [visibleItems, isButtonShown, showMore];
 }

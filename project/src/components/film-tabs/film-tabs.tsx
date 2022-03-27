@@ -16,7 +16,7 @@ function FilmTabs({tabs, activeTab, onChange}: FilmTabsProps): JSX.Element {
   const handleOnTabClick = (evt: MouseEvent<HTMLAnchorElement>, tab: string) => {
     evt.preventDefault();
     onChange(tab);
-  }
+  };
 
   return (
     <nav className="film-nav film-card__nav">
@@ -24,8 +24,8 @@ function FilmTabs({tabs, activeTab, onChange}: FilmTabsProps): JSX.Element {
         {tabs.map((tab) => (
           <li className={getTabClass(tab)} key={tab}>
             <a href="#"
-               className="film-nav__link"
-               onClick={(evt) => handleOnTabClick(evt, tab)}
+              className="film-nav__link"
+              onClick={(evt) => handleOnTabClick(evt, tab)}
             >
               {tab}
             </a>

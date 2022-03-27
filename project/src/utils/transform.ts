@@ -18,15 +18,15 @@ export const transformRating = (rating: number): Rating | null => {
   }
 
   return null;
-}
+};
 
 export const formatDate = (isoDate: string): string => {
   const date = new Date(isoDate);
   return `${Month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
 };
 
-export const formatRunTime = (minutes: number): string => {
-  return minutes >= 60
+export const formatRunTime = (minutes: number): string => (
+  minutes >= 60
     ? `${Math.floor(minutes / 60)}h ${minutes % 60}m`
-    : `${minutes}m`;
-}
+    : `${minutes}m`
+);

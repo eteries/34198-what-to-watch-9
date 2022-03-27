@@ -8,6 +8,7 @@ type FIlmDetailsProps = {
 
 function FilmDetails({film}: FIlmDetailsProps): JSX.Element {
   const {starring, director, runTime, genre, released} = film;
+
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">
@@ -18,7 +19,7 @@ function FilmDetails({film}: FIlmDetailsProps): JSX.Element {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {film.starring.map((actor) => (
+            {starring.map((actor) => (
               <Fragment key={actor}>
                 {actor}, <br />
               </Fragment>))}

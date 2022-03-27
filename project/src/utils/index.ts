@@ -20,5 +20,5 @@ export const splitArray = <T>(arr: T[]):T[][] => {
 
   const middleElem = Math.ceil(arr.length / 2);
 
-  return [arr.slice(0, middleElem), arr.slice((middleElem))]
-}
+  return [arr.slice(0, middleElem), arr.slice((middleElem))];
+};
