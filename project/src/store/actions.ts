@@ -9,6 +9,8 @@ export const loadFilms = createAction<Film[]>('films/load');
 
 export const loadReviews = createAction<Review[]>('films/loadReviews');
 
+export const loadSimilarFilms = createAction<Film[]>('films/loadSimilarFilms');
+
 export const loadUserInfo = createAction<User>('user/loadInfo');
 
 export const changeGenre = createAction<string>('films/changeGenre');

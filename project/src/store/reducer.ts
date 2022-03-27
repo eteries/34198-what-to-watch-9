@@ -5,7 +5,7 @@ import {
   changeGenre,
   filterFilms,
   loadFilms,
-  loadReviews,
+  loadReviews, loadSimilarFilms,
   loadUserInfo
 } from './actions';
 
@@ -17,6 +17,7 @@ const initialState: State = {
   films: [],
   filteredFilms: [],
   reviews: [],
+  similarFilms: [],
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
@@ -30,6 +31,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadReviews, (state: State, {payload}) => {
       state.reviews = payload;
+    })
+    .addCase(loadSimilarFilms, (state: State, {payload}) => {
+      state.similarFilms = payload;
     })
     .addCase(loadUserInfo, (state: State, {payload}) => {
       state.user = payload;

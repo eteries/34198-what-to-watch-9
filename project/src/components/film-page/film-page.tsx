@@ -9,12 +9,12 @@ import NotFound from '../not-found/not-found';
 import UserMenu from '../user-menu/user-menu';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchReviewsAction } from '../../store/async-actions';
+import { fetchReviewsAction, fetchSimilarFilmsAction } from '../../store/async-actions';
 import { useEffect } from 'react';
 
 function FilmPage(): JSX.Element {
   const {id: idParam} = useParams();
-  const films = useAppSelector(({films}) => films);
+  const {films, similarFilms} = useAppSelector((state) => state);
   const film = films.find(({id}) => id.toString() === idParam);
 
   if (film === undefined) {
@@ -22,19 +22,20 @@ function FilmPage(): JSX.Element {
   }
 
   const dispatch = useAppDispatch();
-  const similarFilms = films.filter(({genre}) => genre === film.genre);
+  const {id, name, backgroundImage, posterImage, genre, released} = film;
 
   useEffect(() => {
-    dispatch(fetchReviewsAction(film.id));
+    dispatch(fetchReviewsAction(id));
+    dispatch(fetchSimilarFilmsAction(id));
     scroll(0, 0);
-  }, [film.id]);
+  }, [id]);
 
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.backgroundImage} alt={film.name} key={film.backgroundImage} />
+            <img src={backgroundImage} alt={name} key={backgroundImage} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -47,16 +48,16 @@ function FilmPage(): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{film.name}</h2>
+              <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{film.genre}</span>
-                <span className="film-card__year">{film.released}</span>
+                <span className="film-card__genre">{genre}</span>
+                <span className="film-card__year">{released}</span>
               </p>
 
               <div className="film-card__buttons">
-                <FilmActions id={film.id} />
+                <FilmActions id={id} />
 
-                <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
+                <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -65,7 +66,7 @@ function FilmPage(): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={film.posterImage} alt={`${film.name} poster`} width="218"
+              <img src={posterImage} alt={`${name} poster`} width="218"
                 height="327"
               />
             </div>
