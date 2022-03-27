@@ -66,3 +66,5 @@ export enum Month {
   November,
   December
 }
+
+export const FILM_LIST_CHUNK_SIZE = 8;
