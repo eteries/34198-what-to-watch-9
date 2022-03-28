@@ -1,13 +1,14 @@
-import { Film } from '../../types/film';
-import useVideoPlayer from '../../hooks/use-video-player/use-video-player';
 import Loading from '../loading/loading';
+
+import useVideoPlayer from '../../hooks/use-video-player/use-video-player';
+import { Film } from '../../types/film';
 
 type VideoPlayerProps = {
   hasAutoPlay: boolean;
   video: Film;
   showControls?: boolean;
   isMuted?: boolean;
-  onExit?: () => void
+  onExit?: () => void;
 }
 
 function VideoPlayer({

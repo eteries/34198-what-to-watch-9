@@ -1,7 +1,15 @@
 import { api, store } from './index';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { changeAuthStatus, filterFilms, loadFilms, loadReviews, loadUserInfo, redirectToRoute } from './actions';
+import {
+  changeAuthStatus,
+  filterFilms,
+  loadFilms,
+  loadReviews,
+  loadSimilarFilms,
+  loadUserInfo,
+  redirectToRoute
+} from './actions';
 
 import { ApiRoutes, AppRoutes, AuthorizationStatus } from '../constants';
 import { dropToken, saveToken } from '../services/token';
@@ -26,10 +34,22 @@ export const fetchFilmsAction = createAsyncThunk(
 
 export const fetchReviewsAction = createAsyncThunk(
   'data/fetchReviews',
-  async (id: Pick<Film, 'id'>) => {
+  async (id: number) => {
     try {
       const {data} = await api.get<Review[]>(`${ApiRoutes.Comments}/${id}`);
       store.dispatch(loadReviews(data));
+    } catch (err) {
+      errorHandle(err);
+    }
+  },
+);
+
+export const fetchSimilarFilmsAction = createAsyncThunk(
+  'data/fetchSimilarFilms',
+  async (id: number) => {
+    try {
+      const {data} = await api.get<Film[]>(`${ApiRoutes.Films}/${id}${ApiRoutes.Similar}`);
+      store.dispatch(loadSimilarFilms(data));
     } catch (err) {
       errorHandle(err);
     }

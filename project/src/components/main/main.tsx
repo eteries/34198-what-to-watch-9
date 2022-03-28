@@ -2,18 +2,20 @@ import GenreList from '../genre-list/genre-list';
 import Logo from '../logo/logo';
 import FilmList from '../film-list/film-list';
 import FilmPromo from '../film-promo/film-promo';
+import Footer from '../footer/footer';
 import UserMenu from '../user-menu/user-menu';
 
-import { ALL_GENRES } from '../../constants';
+import { ALL_GENRES, FILM_LIST_CHUNK_SIZE } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import UseShowMore from '../../hooks/use-show-more/use-show-more';
 import { filterFilms } from '../../store/actions';
 import { mapToUniqueKeys } from '../../utils';
-import Footer from '../footer/footer';
 
 function Main(): JSX.Element {
   const dispatch = useAppDispatch();
   const {films, filteredFilms} = useAppSelector((state) => state);
   const genres = mapToUniqueKeys(films, 'genre', ALL_GENRES);
+  const [visibleFilms, isButtonShown, showMore] = UseShowMore(filteredFilms, FILM_LIST_CHUNK_SIZE);
 
   return (
     <>
@@ -31,10 +33,17 @@ function Main(): JSX.Element {
 
           <GenreList genres={genres} onChange={() => dispatch(filterFilms())}/>
 
-          <FilmList films={filteredFilms} />
+          <FilmList films={visibleFilms} />
 
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
+            {isButtonShown &&
+            <button
+              className="catalog__button"
+              type="button"
+              onClick={showMore}
+            >
+              Show more
+            </button> }
           </div>
         </section>
 

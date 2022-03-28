@@ -6,7 +6,7 @@ import { Film } from '../../types/film';
 import Footer from '../footer/footer';
 
 type MyListProps = {
-  favorites: Film[]
+  favorites: Film[];
 }
 
 function MyList({favorites}: MyListProps): JSX.Element {

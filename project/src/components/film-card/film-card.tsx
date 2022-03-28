@@ -7,7 +7,7 @@ import useDelayedEffect from '../../hooks/use-delayed-effect/use-delayed-effect'
 import { Film } from '../../types/film';
 
 type FilmCardProps = {
-  film: Film
+  film: Film;
 }
 
 function FilmCard({film}: FilmCardProps): JSX.Element {

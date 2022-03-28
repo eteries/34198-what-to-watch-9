@@ -7,7 +7,7 @@ import { AppRoutes } from '../../constants';
 import { Film } from '../../types/film';
 
 type FilmHeaderProps = {
-  film: Film
+  film: Film;
 }
 
 function FilmHeader({film}: FilmHeaderProps): JSX.Element {

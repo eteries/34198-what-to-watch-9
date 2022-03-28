@@ -4,8 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeGenre } from '../../store/actions';
 
 type GenreListProps = {
-  genres: string[],
-  onChange: () => void
+  genres: string[];
+  onChange: () => void;
 };
 
 function GenreList({genres, onChange}:   GenreListProps): JSX.Element {

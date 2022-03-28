@@ -5,7 +5,7 @@ import FilmActions from '../film-actions/film-actions';
 import { Film } from '../../types/film';
 
 type FilmPromoProps = {
-  film: Film
+  film: Film;
 };
 
 function FilmPromo({film, children}: PropsWithChildren<FilmPromoProps>): JSX.Element {

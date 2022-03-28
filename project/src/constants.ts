@@ -37,3 +37,34 @@ export enum HTTP_CODE {
   UNAUTHORIZED = 401,
   NOT_FOUND = 404,
 }
+
+export enum FilmTabs {
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews',
+}
+
+export enum Rating {
+  Bad= 'Bad',
+  Normal = 'Normal',
+  Good = 'Good',
+  Very_Good = 'Very Good',
+  Awesome = 'Awesome'
+}
+
+export enum Month {
+  January,
+  February,
+  March,
+  April,
+  May,
+  June,
+  July,
+  August,
+  September,
+  October,
+  November,
+  December
+}
+
+export const FILM_LIST_CHUNK_SIZE = 8;
