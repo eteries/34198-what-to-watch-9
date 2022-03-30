@@ -1,3 +1,5 @@
+import { RatingData } from './types/rating-data';
+
 export enum AppRoutes {
   Main=  '/',
   SignIn = '/login',
@@ -44,13 +46,33 @@ export enum FilmTabs {
   Reviews = 'Reviews',
 }
 
-export enum Rating {
-  Bad= 'Bad',
-  Normal = 'Normal',
-  Good = 'Good',
-  Very_Good = 'Very Good',
-  Awesome = 'Awesome'
-}
+export const FilmRating: RatingData = {
+  Bad: {
+    Label: 'Bad',
+    Min: 0,
+    Max: 3,
+  },
+  Normal: {
+    Label: 'Normal',
+    Min: 3,
+    Max: 5,
+  },
+  Good: {
+    Label: 'Good',
+    Min: 5,
+    Max: 8,
+  },
+  VeryGood: {
+    Label: 'Very Good',
+    Min: 8,
+    Max: 10,
+  },
+  Awesome: {
+    Label: 'Awesome',
+    Min: 10,
+    Max: 10,
+  },
+};
 
 export enum Month {
   January,

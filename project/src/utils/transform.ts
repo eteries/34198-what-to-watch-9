@@ -1,20 +1,21 @@
-import { Month, Rating } from '../constants';
+import { Month, FilmRating } from '../constants';
+import { RatingLabel } from '../types/rating-label';
 
-export const transformRating = (rating: number): Rating | null => {
-  if (rating > 0 && rating < 3) {
-    return Rating.Bad;
+export const transformRating = (rating: number): RatingLabel | null => {
+  if (rating > FilmRating.Bad.Min && rating < FilmRating.Bad.Max) {
+    return FilmRating.Bad.Label;
   }
-  if (rating >= 3 && rating < 5) {
-    return Rating.Normal;
+  if (rating >= FilmRating.Normal.Min && rating < FilmRating.Normal.Max) {
+    return FilmRating.Normal.Label;
   }
-  if (rating >= 5 && rating < 8) {
-    return Rating.Good;
+  if (rating >= FilmRating.Good.Min && rating < FilmRating.Good.Max) {
+    return FilmRating.Good.Label;
   }
-  if (rating >= 8 && rating < 10) {
-    return Rating.Very_Good;
+  if (rating >= FilmRating.VeryGood.Min && rating < FilmRating.VeryGood.Max) {
+    return FilmRating.Very_Good.Label;
   }
-  if (rating === 10) {
-    return Rating.Awesome;
+  if (rating === FilmRating.Awesome.Min) {
+    return FilmRating.Awesome.Label;
   }
 
   return null;
