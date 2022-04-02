@@ -5,6 +5,7 @@ export enum AppRoutes {
   SignIn = '/login',
   MyList = '/mylist',
   Film = '/films/:id',
+  Films = '/films',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
 }
@@ -16,7 +17,7 @@ export enum ApiRoutes {
   Favorites = '/favorite',
   Comments = '/comments',
   Login = '/login',
-  Logout = 'logout'
+  Logout = '/logout'
 }
 
 export enum AuthorizationStatus {

@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   changeAuthStatus,
+  changeLoadingStatus,
   filterFilms,
   loadFilms,
   loadReviews,
@@ -18,16 +19,21 @@ import { AuthData } from '../types/auth-data';
 import { Review } from '../types/review';
 import { UserData } from '../types/user-data';
 import { errorHandle } from '../services/error';
+import { ReviewData } from '../types/review-data';
+import { toast } from 'react-toastify';
 
 export const fetchFilmsAction = createAsyncThunk(
   'data/fetchFilms',
   async () => {
     try {
+      store.dispatch(changeLoadingStatus(true));
       const {data} = await api.get<Film[]>(ApiRoutes.Films);
       store.dispatch(loadFilms(data));
       store.dispatch(filterFilms());
+      store.dispatch(changeLoadingStatus(false));
     } catch (err) {
       errorHandle(err);
+      store.dispatch(changeLoadingStatus(false));
     }
   },
 );
@@ -52,6 +58,23 @@ export const fetchSimilarFilmsAction = createAsyncThunk(
       store.dispatch(loadSimilarFilms(data));
     } catch (err) {
       errorHandle(err);
+    }
+  },
+);
+
+export const postReviewAction = createAsyncThunk(
+  'data/postReview',
+  async ({filmId, ...review}: ReviewData) => {
+    try {
+      store.dispatch(changeLoadingStatus(true));
+      const {data} = await api.post<Review[]>(`${ApiRoutes.Comments}/${filmId}`, {...review});
+      store.dispatch(loadReviews(data));
+      store.dispatch(changeLoadingStatus(false));
+      store.dispatch(redirectToRoute(`${AppRoutes.Films}/${filmId}`));
+      toast.success('Your review has been successfully sent');
+    } catch (err) {
+      errorHandle(err);
+      store.dispatch(changeLoadingStatus(false));
     }
   },
 );
@@ -91,6 +114,8 @@ export const logoutAction = createAsyncThunk(
       await api.delete(ApiRoutes.Logout);
       dropToken();
       store.dispatch(changeAuthStatus(AuthorizationStatus.NoAuth));
+      store.dispatch(loadUserInfo(null));
+      toast.success('You have been successfully logged out');
     } catch (err) {
       errorHandle(err);
     }

@@ -9,9 +9,11 @@ export const loadFilms = createAction<Film[]>('films/load');
 
 export const loadReviews = createAction<Review[]>('films/loadReviews');
 
+export const postReview = createAction<Review[]>('films/postReview');
+
 export const loadSimilarFilms = createAction<Film[]>('films/loadSimilarFilms');
 
-export const loadUserInfo = createAction<User>('user/loadInfo');
+export const loadUserInfo = createAction<User | null>('user/loadInfo');
 
 export const changeGenre = createAction<string>('films/changeGenre');
 
@@ -19,4 +21,6 @@ export const filterFilms = createAction('films/filter');
 
 export const changeAuthStatus = createAction<AuthorizationStatus>('user/changeAuthStatus');
 
-export const redirectToRoute = createAction<AppRoutes>('app/redirectToRoute');
+export const changeLoadingStatus = createAction<boolean>('user/changeLoadedStatus');
+
+export const redirectToRoute = createAction<AppRoutes | string>('app/redirectToRoute');

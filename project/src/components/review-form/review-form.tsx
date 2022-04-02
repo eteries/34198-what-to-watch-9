@@ -1,20 +1,60 @@
-import { ChangeEvent, Fragment, useState } from 'react';
-import { Rating } from '../../constants';
+import { ChangeEvent, Fragment, useState, FormEvent, useEffect } from 'react';
 
-function ReviewForm(): JSX.Element {
+import { Rating } from '../../constants';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { postReviewAction } from '../../store/async-actions';
+import { State } from '../../types/state';
+
+type ReviewFormProps = {
+  filmId: number;
+}
+
+function ReviewForm({filmId}: ReviewFormProps): JSX.Element {
   const [rating, setRating] = useState(Rating.DefaultValue);
   const [review, setReview] = useState('');
+  const [isValid, setIsValid] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
+
+  const {isLoading} = useAppSelector((state: State) => state);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const length = review.trim().length;
+
+    if (length < 50 || length > 400) {
+      setIsValid(false);
+      return;
+    }
+    setIsValid(true);
+  }, [review, isTouched]);
+
+  const handleTextInput = ({target: {value}}: ChangeEvent<HTMLTextAreaElement>) => {
+    setReview(value);
+    setIsTouched(true);
+  };
+
+  const handleReviewSubmit = (evt: FormEvent) => {
+    evt.preventDefault();
+    if (!isValid) {
+      return;
+    }
+
+    dispatch(postReviewAction({
+      comment: review,
+      filmId,
+      rating,
+    }));
+  };
 
   return (
-    <form action="#" className="add-review__form">
+    <form action="#" className="add-review__form" onSubmit={handleReviewSubmit}>
       <div className="rating">
-        <div className="rating__stars"
-          onChange={({target: {value}}: ChangeEvent<HTMLInputElement>) => setRating(parseInt(value, 10))}
-        >
+        <div className="rating__stars">
           {
             new Array(Rating.StarsNum)
               .fill(null)
-              .map((value, index) => (index + 1))
+              .map((item, index) => (index + 1))
               .reverse()
               .map((value) => (
                 <Fragment key={value}>
@@ -23,6 +63,7 @@ function ReviewForm(): JSX.Element {
                     type="radio"
                     name="rating"
                     value={value}
+                    onChange={() => setRating(value)}
                     checked={rating === value}
                   />
                   <label className="rating__label"
@@ -42,13 +83,24 @@ function ReviewForm(): JSX.Element {
           id="review-text"
           placeholder="Review text"
           value={review}
-          onChange={({target: {value}}: ChangeEvent<HTMLTextAreaElement>) => setReview(value)}
+          onChange={handleTextInput}
         />
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">Post</button>
+          <button
+            className="add-review__btn"
+            type="submit"
+            disabled={!isValid || isLoading}
+          >
+            Post
+          </button>
         </div>
 
       </div>
+
+      {!isValid && isTouched &&
+        <p style={{color: '#866866'}}>
+          A review must be from 50 to 400 characters long
+        </p>}
     </form>
   );
 }

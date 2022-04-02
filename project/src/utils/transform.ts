@@ -12,7 +12,7 @@ export const transformRating = (rating: number): RatingLabel | null => {
     return FilmRating.Good.Label;
   }
   if (rating >= FilmRating.VeryGood.Min && rating < FilmRating.VeryGood.Max) {
-    return FilmRating.Very_Good.Label;
+    return FilmRating.VeryGood.Label;
   }
   if (rating === FilmRating.Awesome.Min) {
     return FilmRating.Awesome.Label;
