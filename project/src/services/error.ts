@@ -5,6 +5,10 @@ import { ErrorType } from '../types/error';
 import { HTTP_CODE } from '../constants';
 
 export const errorHandle = (error: ErrorType): void => {
+  if (error === null) {
+    return;
+  }
+
   if (!request.isAxiosError(error)) {
     throw error;
   }

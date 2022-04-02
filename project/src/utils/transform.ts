@@ -31,3 +31,27 @@ export const formatRunTime = (minutes: number): string => (
     ? `${Math.floor(minutes / 60)}h ${minutes % 60}m`
     : `${minutes}m`
 );
+
+export const formatTimeLeft = (secondsTotal: number | null): string | null => {
+  if (secondsTotal === 0 || secondsTotal === null) {
+    return null;
+  }
+
+  let result = '-';
+  let remaining = secondsTotal;
+  const hours = Math.floor(secondsTotal / (60*60));
+
+  if (hours >= 1) {
+    result += (hours < 10 ? `0${hours}:` : `${hours}:`);
+    remaining -= hours * 60*60;
+  }
+
+  const minutes = Math.floor(remaining / 60);
+  result += (minutes < 10 ? `0${minutes}:` : `${minutes}:`);
+  remaining -= minutes * 60;
+
+  const seconds = Math.floor(remaining);
+  result += (seconds < 10 ? `0${seconds}:` : `${seconds}`);
+
+  return result;
+};

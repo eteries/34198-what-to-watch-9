@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { Film } from '../../types/film';
 import { Player } from '../../types/player';
+import { errorHandle } from '../../services/error';
 
 function useVideoPlayer(video: Film, hasAutoPlay: boolean, showControls:boolean): Player {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,7 +38,9 @@ function useVideoPlayer(video: Film, hasAutoPlay: boolean, showControls:boolean)
     }
 
     if (isPlaying || hasAutoPlay) {
-      videoRef.current.play();
+      videoRef.current
+        .play()
+        .catch(() => errorHandle(null));
       return;
     }
 
@@ -90,22 +93,22 @@ function useVideoPlayer(video: Film, hasAutoPlay: boolean, showControls:boolean)
     };
   });
 
-  const getDuration = () => {
-    if (videoRef.current !== null) {
-      return videoRef.current.duration;
+  const getTimeLeft = (): number | null => {
+    if (videoRef.current !== null && videoRef.current.duration !== Infinity) {
+      return videoRef.current.duration - videoRef.current.currentTime;
     }
 
-    return 0;
+    return null;
   };
 
   return {
     videoRef,
-    duration: getDuration(),
     play: () => setIsPlaying(true),
     pause: () => setIsPlaying(false),
     toggle: () => setIsPlaying(!isPlaying),
     getCurrentProgress: () => currentProgress,
     getIsLoading: () => isLoading,
+    getTimeLeft,
   };
 }
 
