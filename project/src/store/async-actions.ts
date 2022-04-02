@@ -12,7 +12,7 @@ import {
   redirectToRoute
 } from './actions';
 
-import { ApiRoutes, AppRoutes, AuthorizationStatus } from '../constants';
+import { ApiRoutes, AppRoutes, AuthorizationStatus, Messages } from '../constants';
 import { dropToken, saveToken } from '../services/token';
 import { Film } from '../types/film';
 import { AuthData } from '../types/auth-data';
@@ -71,7 +71,7 @@ export const postReviewAction = createAsyncThunk(
       store.dispatch(loadReviews(data));
       store.dispatch(changeLoadingStatus(false));
       store.dispatch(redirectToRoute(`${AppRoutes.Films}/${filmId}`));
-      toast.success('Your review has been successfully sent');
+      toast.success(Messages.ReviewSent);
     } catch (err) {
       errorHandle(err);
       store.dispatch(changeLoadingStatus(false));
@@ -115,7 +115,7 @@ export const logoutAction = createAsyncThunk(
       dropToken();
       store.dispatch(changeAuthStatus(AuthorizationStatus.NoAuth));
       store.dispatch(loadUserInfo(null));
-      toast.success('You have been successfully logged out');
+      toast.success(Messages.LoggedOut);
     } catch (err) {
       errorHandle(err);
     }

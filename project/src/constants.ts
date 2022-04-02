@@ -91,3 +91,8 @@ export enum Month {
 }
 
 export const FILM_LIST_CHUNK_SIZE = 8;
+
+export enum Messages {
+  ReviewSent = 'Your review has been successfully sent',
+  LoggedOut = 'You have been successfully logged out'
+}
