@@ -108,6 +108,7 @@ function useVideoPlayer(video: Film, hasAutoPlay: boolean, showControls:boolean)
     toggle: () => setIsPlaying(!isPlaying),
     getCurrentProgress: () => currentProgress,
     getIsLoading: () => isLoading,
+    getIsPlaying: () => isPlaying,
     getTimeLeft,
   };
 }
