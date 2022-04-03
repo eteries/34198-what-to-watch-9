@@ -7,6 +7,8 @@ import { fetchFavoriteFilmsAction } from '../../store/async-actions';
 import { State } from '../../types/state';
 import Footer from '../footer/footer';
 import { useEffect } from 'react';
+import { AppRoutes } from '../../constants';
+import { Link } from 'react-router-dom';
 
 function MyList(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -29,7 +31,12 @@ function MyList(): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmList films={favoriteFilms} />
+        {favoriteFilms.length > 0 && <FilmList films={favoriteFilms} />}
+        {favoriteFilms.length === 0 && (
+          <p style={{textAlign: 'center'}}>
+            Add your favorite films from <Link style={{color: 'inherit'}} to={AppRoutes.Main}>the catalog</Link> to watch them lately.
+          </p>
+        )}
       </section>
 
       <Footer />

@@ -96,15 +96,18 @@ export const changeFavoriteStatusAction = createAsyncThunk(
   'data/changeFavoriteStatus',
   async ({filmId, status}: FavoriteData) => {
     try {
+      store.dispatch(changeLoadingStatus(true));
       const {data} = await api.post<Film>(`${ApiRoutes.Favorites}/${filmId}/${status}`);
       store.dispatch(replaceFilm(data));
       store.dispatch(loadFavoriteFilms([]));
       store.dispatch(redirectToRoute(AppRoutes.MyList));
+      store.dispatch(changeLoadingStatus(false));
       status
         ? toast.success(Messages.FavoriteAdded)
         : toast.success(Messages.FavoriteRemoved);
     } catch (err) {
       errorHandle(err);
+      store.dispatch(changeLoadingStatus(false));
     }
   },
 );
