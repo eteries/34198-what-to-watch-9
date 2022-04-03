@@ -4,11 +4,14 @@ import {
   changeAuthStatus,
   changeGenre,
   changeLoadingStatus,
-  filterFilms, loadFavoriteFilms,
+  filterFilms,
+  loadFavoriteFilms,
   loadFilms,
+  loadPromoFilm,
   loadReviews,
   loadSimilarFilms,
-  loadUserInfo, replaceFilm
+  loadUserInfo,
+  replaceFilm
 } from './actions';
 
 import { ALL_GENRES, AuthorizationStatus } from '../constants';
@@ -21,6 +24,7 @@ const initialState: State = {
   reviews: [],
   similarFilms: [],
   favoriteFilms: [],
+  promoFilm: null,
   isLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
@@ -30,6 +34,9 @@ const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(loadFilms, (state: State, {payload}) => {
       state.films = payload;
+    })
+    .addCase(loadPromoFilm, (state: State, {payload}) => {
+      state.promoFilm = payload;
     })
     .addCase(loadReviews, (state: State, {payload}) => {
       state.reviews = payload;

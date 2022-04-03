@@ -12,6 +12,7 @@ export type State = {
   reviews: Review[];
   similarFilms: Film[];
   favoriteFilms: Film[];
+  promoFilm: Film | null;
   isLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   user: User | null;

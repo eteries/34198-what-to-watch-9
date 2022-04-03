@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import GenreList from '../genre-list/genre-list';
 import Logo from '../logo/logo';
 import FilmList from '../film-list/film-list';
@@ -10,13 +12,18 @@ import { ALL_GENRES, FILM_LIST_CHUNK_SIZE } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import UseShowMore from '../../hooks/use-show-more/use-show-more';
 import { filterFilms } from '../../store/actions';
+import { fetchPromoFilmAction } from '../../store/async-actions';
 import { mapToUniqueKeys } from '../../utils';
 
 function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {films, filteredFilms, isLoading} = useAppSelector((state) => state);
+  const {films, promoFilm, filteredFilms, isLoading} = useAppSelector((state) => state);
   const genres = mapToUniqueKeys(films, 'genre', ALL_GENRES);
   const [visibleFilms, isButtonShown, showMore] = UseShowMore(filteredFilms, FILM_LIST_CHUNK_SIZE);
+
+  useEffect(() => {
+    dispatch(fetchPromoFilmAction());
+  },[])
 
   if (isLoading) {
     return (
@@ -28,13 +35,22 @@ function Main(): JSX.Element {
 
   return (
     <>
-      <FilmPromo film={films[0]}>
+      {promoFilm &&
+        <FilmPromo film={promoFilm}>
+          <header className="page-header film-card__head">
+            <Logo />
+
+            <UserMenu />
+          </header>
+        </FilmPromo>
+      }
+      {!promoFilm &&
         <header className="page-header film-card__head">
           <Logo />
 
           <UserMenu />
         </header>
-      </FilmPromo>
+      }
 
       <div className="page-content">
         <section className="catalog">

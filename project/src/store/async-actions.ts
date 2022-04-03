@@ -4,12 +4,15 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   changeAuthStatus,
   changeLoadingStatus,
-  filterFilms, loadFavoriteFilms,
+  filterFilms,
+  loadFavoriteFilms,
   loadFilms,
+  loadPromoFilm,
   loadReviews,
   loadSimilarFilms,
   loadUserInfo,
-  redirectToRoute, replaceFilm
+  redirectToRoute,
+  replaceFilm
 } from './actions';
 
 import { ApiRoutes, AppRoutes, AuthorizationStatus, Messages } from '../constants';
@@ -31,6 +34,21 @@ export const fetchFilmsAction = createAsyncThunk(
       const {data} = await api.get<Film[]>(ApiRoutes.Films);
       store.dispatch(loadFilms(data));
       store.dispatch(filterFilms());
+      store.dispatch(changeLoadingStatus(false));
+    } catch (err) {
+      errorHandle(err);
+      store.dispatch(changeLoadingStatus(false));
+    }
+  },
+);
+
+export const fetchPromoFilmAction = createAsyncThunk(
+  'data/fetchPromoFilm',
+  async () => {
+    try {
+      store.dispatch(changeLoadingStatus(true));
+      const {data} = await api.get<Film>(ApiRoutes.Promo);
+      store.dispatch(loadPromoFilm(data));
       store.dispatch(changeLoadingStatus(false));
     } catch (err) {
       errorHandle(err);

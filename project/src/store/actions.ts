@@ -7,6 +7,8 @@ import { User } from '../types/user';
 
 export const loadFilms = createAction<Film[]>('films/load');
 
+export const loadPromoFilm = createAction<Film>('films/loadPromoFilm');
+
 export const loadReviews = createAction<Review[]>('films/loadReviews');
 
 export const postReview = createAction<Review[]>('films/postReview');

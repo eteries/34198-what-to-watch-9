@@ -8,4 +8,5 @@ export type Player = {
   getCurrentProgress: () => number;
   getTimeLeft: () => number | null;
   getIsLoading: () => boolean;
+  getIsPlaying: () => boolean;
 }
