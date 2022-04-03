@@ -27,7 +27,11 @@ function App(): JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={AppRoutes.AddReview} element={<AddReview />} />
+        <Route path={AppRoutes.AddReview} element={
+          <PrivateRoute authorizationStatus={authorizationStatus}>
+            <AddReview />
+          </PrivateRoute>
+        } />
         <Route path={AppRoutes.Film} element={<FilmPage />} />
         <Route path={AppRoutes.Player} element={<PlayerPage />} />
         <Route path={AppRoutes.Main} element={<Main />} />

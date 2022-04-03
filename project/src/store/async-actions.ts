@@ -118,6 +118,7 @@ export const checkAuthAction = createAsyncThunk(
       store.dispatch(loadUserInfo(user));
     } catch(err) {
       errorHandle(err);
+      store.dispatch(changeAuthStatus(AuthorizationStatus.NoAuth));
     }
   },
 );

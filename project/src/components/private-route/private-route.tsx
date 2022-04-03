@@ -1,5 +1,7 @@
 import { Navigate } from 'react-router-dom';
 
+import Loading from '../loading/loading';
+
 import { AppRoutes, AuthorizationStatus } from '../../constants';
 
 type PrivateRouteProps = {
@@ -8,9 +10,18 @@ type PrivateRouteProps = {
 };
 
 function PrivateRoute({authorizationStatus, children}: PrivateRouteProps): JSX.Element {
-  return authorizationStatus === AuthorizationStatus.Auth
-    ? children
-    : <Navigate to={AppRoutes.SignIn} />;
+  switch (authorizationStatus) {
+    case AuthorizationStatus.Auth:
+      return children;
+    case AuthorizationStatus.Unknown:
+      return (
+        <div style={{ backgroundColor: '#180202', minHeight: '100vh'}}>
+          <Loading />
+        </div>
+      );
+    case AuthorizationStatus.NoAuth:
+      return <Navigate to={ AppRoutes.SignIn } />;
+  }
 }
 
 export default PrivateRoute;
