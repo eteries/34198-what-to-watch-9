@@ -11,6 +11,7 @@ import UserMenu from '../user-menu/user-menu';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchReviewsAction, fetchSimilarFilmsAction } from '../../store/async-actions';
 import { Film } from '../../types/film';
+import { Settings } from '../../constants';
 
 type FilmContentProps = {
   film: Film;
@@ -20,6 +21,9 @@ function FilmContent({film}: FilmContentProps): JSX.Element {
   const dispatch = useAppDispatch();
   const {similarFilms, user} = useAppSelector((state) => state);
   const {id, name, backgroundImage, posterImage, genre, released, isFavorite} = film;
+  const selectedSimilarFilms = similarFilms
+    .filter((item) => item.id !== id)
+    .slice(0, Settings.SimilarFilmsMaxNum);
 
   useEffect(() => {
     dispatch(fetchReviewsAction(id));
@@ -79,12 +83,12 @@ function FilmContent({film}: FilmContentProps): JSX.Element {
       </section>
 
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
+        {selectedSimilarFilms.length > 0 &&
+          <section className="catalog catalog--like-this">
+            <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={similarFilms} />
-        </section>
-
+            <FilmList films={ selectedSimilarFilms } />
+          </section>}
         <Footer />
       </div>
     </>

@@ -26,18 +26,16 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum Rating {
-  DefaultValue = 8,
-  StarsNum = 10,
-}
-
-export const VIDEO_PREVIEW_DELAY = 1000;
-
 export const ALL_GENRES = 'All genres';
 
-export const GENRES_MAX_LIST_LENGTH = 9;
-
-export const FILM_LIST_CHUNK_SIZE = 8;
+export enum Settings {
+  DefaultRating = 8,
+  StarsNum = 10,
+  VideoPreviewDelay = 1000,
+  GenresMaxLength = 10,
+  FilmListChunk = 8,
+  SimilarFilmsMaxNum = 4
+}
 
 export enum HTTP_CODE {
   BAD_REQUEST = 400,
