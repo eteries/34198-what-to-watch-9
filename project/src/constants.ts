@@ -35,6 +35,10 @@ export const VIDEO_PREVIEW_DELAY = 1000;
 
 export const ALL_GENRES = 'All genres';
 
+export const GENRES_MAX_LIST_LENGTH = 9;
+
+export const FILM_LIST_CHUNK_SIZE = 8;
+
 export enum HTTP_CODE {
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
@@ -89,8 +93,6 @@ export enum Month {
   November,
   December
 }
-
-export const FILM_LIST_CHUNK_SIZE = 8;
 
 export enum Messages {
   ReviewSent = 'Your review has been successfully sent',

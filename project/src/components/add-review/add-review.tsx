@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import Logo from '../logo/logo';
 import NotFound from '../not-found/not-found';
@@ -11,8 +11,6 @@ function AddReview(): JSX.Element | null {
   const {id: idParam} = useParams();
   const {films} = useAppSelector((state) => state);
   const film = films.find(({id}) => id.toString() === idParam);
-  const navigate = useNavigate();
-
 
   if (film === undefined) {
     return <NotFound />;

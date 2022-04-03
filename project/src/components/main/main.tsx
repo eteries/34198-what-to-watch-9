@@ -8,7 +8,7 @@ import Footer from '../footer/footer';
 import Loading from '../loading/loading';
 import UserMenu from '../user-menu/user-menu';
 
-import { ALL_GENRES, FILM_LIST_CHUNK_SIZE } from '../../constants';
+import { ALL_GENRES, FILM_LIST_CHUNK_SIZE, GENRES_MAX_LIST_LENGTH } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import UseShowMore from '../../hooks/use-show-more/use-show-more';
 import { filterFilms } from '../../store/actions';
@@ -18,12 +18,12 @@ import { mapToUniqueKeys } from '../../utils';
 function Main(): JSX.Element {
   const dispatch = useAppDispatch();
   const {films, promoFilm, filteredFilms, isLoading} = useAppSelector((state) => state);
-  const genres = mapToUniqueKeys(films, 'genre', ALL_GENRES);
+  const genres = mapToUniqueKeys(films, 'genre', ALL_GENRES).slice(0, GENRES_MAX_LIST_LENGTH);
   const [visibleFilms, isButtonShown, showMore] = UseShowMore(filteredFilms, FILM_LIST_CHUNK_SIZE);
 
   useEffect(() => {
     dispatch(fetchPromoFilmAction());
-  },[])
+  },[]);
 
   if (isLoading) {
     return (
@@ -42,15 +42,14 @@ function Main(): JSX.Element {
 
             <UserMenu />
           </header>
-        </FilmPromo>
-      }
+        </FilmPromo>}
+
       {!promoFilm &&
         <header className="page-header film-card__head">
           <Logo />
 
           <UserMenu />
-        </header>
-      }
+        </header>}
 
       <div className="page-content">
         <section className="catalog">
