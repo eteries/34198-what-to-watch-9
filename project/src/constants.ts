@@ -93,10 +93,11 @@ export enum Month {
 }
 
 export enum Messages {
-  ReviewSent = 'Your review has been successfully sent',
+  ReviewSent = 'Your review has been successfully added',
   LoggedOut = 'You have been successfully logged out',
   FavoriteRemoved = 'The film has been successfully removed from your list',
-  FavoriteAdded = 'The film has been successfully added to your list'
+  FavoriteAdded = 'The film has been successfully added to your list',
+  UnknownError = 'Some data seems temporally unavailable. Try again later.'
 }
 
 export enum ApiCommand {

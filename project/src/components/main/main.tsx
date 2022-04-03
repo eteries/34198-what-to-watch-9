@@ -26,11 +26,7 @@ function Main(): JSX.Element {
   },[]);
 
   if (isLoading) {
-    return (
-      <div style={{ backgroundColor: '#180202', minHeight: '100vh'}}>
-        <Loading />
-      </div>
-    );
+    return <Loading position="screen" />;
   }
 
   return (

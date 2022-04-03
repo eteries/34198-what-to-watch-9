@@ -2,7 +2,7 @@ import request from 'axios';
 import { toast } from 'react-toastify';
 
 import { ErrorType } from '../types/error';
-import { HTTP_CODE } from '../constants';
+import { HTTP_CODE, Messages } from '../constants';
 
 export const errorHandle = (error: ErrorType): void => {
   if (error === null) {
@@ -26,5 +26,10 @@ export const errorHandle = (error: ErrorType): void => {
         toast.error(response.data.error);
         break;
     }
+
+    return;
   }
+
+  toast.error(Messages.UnknownError);
+  toast.clearWaitingQueue();
 };

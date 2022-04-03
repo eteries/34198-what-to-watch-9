@@ -14,11 +14,7 @@ function PrivateRoute({authorizationStatus, children}: PrivateRouteProps): JSX.E
     case AuthorizationStatus.Auth:
       return children;
     case AuthorizationStatus.Unknown:
-      return (
-        <div style={{ backgroundColor: '#180202', minHeight: '100vh'}}>
-          <Loading />
-        </div>
-      );
+      return <Loading position="screen" />;
     case AuthorizationStatus.NoAuth:
       return <Navigate to={ AppRoutes.SignIn } />;
   }

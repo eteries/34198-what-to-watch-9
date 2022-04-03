@@ -51,7 +51,9 @@ function VideoPlayer({
                 <progress className="player__progress" value={getCurrentProgress()} max="100" />
                 <div className="player__toggler" style={{left: `${getCurrentProgress()}%`}}>Toggle</div>
               </div>
-              <div className="player__time-value">{formatTimeLeft(getTimeLeft())}</div>
+              <div className="player__time-value" style={{minHeight: '20px'}}>
+                {formatTimeLeft(getTimeLeft())}
+              </div>
             </div>
 
             <div className="player__controls-row">
@@ -61,7 +63,7 @@ function VideoPlayer({
                 disabled={getIsLoading()}
                 onClick={toggle}
               >
-                {getIsPlaying() &&
+                {!getIsPlaying() &&
                   <>
                     <svg viewBox="0 0 19 19" width="19" height="19">
                       <use xlinkHref="#play-s" />
@@ -69,7 +71,7 @@ function VideoPlayer({
                     <span>Play</span>
                   </>}
 
-                {!getIsPlaying() &&
+                {getIsPlaying() &&
                   <>
                     <svg viewBox="0 0 14 21" width="14" height="21">
                       <use xlinkHref="#pause" />
