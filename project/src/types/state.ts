@@ -11,7 +11,7 @@ export type State = {
   filteredFilms: Film[];
   reviews: Review[];
   similarFilms: Film[];
-  isDataLoaded: boolean;
+  isLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   user: User | null;
 }

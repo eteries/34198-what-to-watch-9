@@ -3,9 +3,11 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
   changeAuthStatus,
   changeGenre,
+  changeLoadingStatus,
   filterFilms,
   loadFilms,
-  loadReviews, loadSimilarFilms,
+  loadReviews,
+  loadSimilarFilms,
   loadUserInfo
 } from './actions';
 
@@ -18,7 +20,7 @@ const initialState: State = {
   filteredFilms: [],
   reviews: [],
   similarFilms: [],
-  isDataLoaded: false,
+  isLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
 };
@@ -27,7 +29,6 @@ const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(loadFilms, (state: State, {payload}) => {
       state.films = payload;
-      state.isDataLoaded = true;
     })
     .addCase(loadReviews, (state: State, {payload}) => {
       state.reviews = payload;
@@ -48,6 +49,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeAuthStatus, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(changeLoadingStatus, (state, action) => {
+      state.isLoading = action.payload;
     });
 });
 

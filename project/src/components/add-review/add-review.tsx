@@ -1,16 +1,26 @@
-import { Link, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import Logo from '../logo/logo';
 import NotFound from '../not-found/not-found';
 import ReviewForm from '../review-form/review-form';
 import UserMenu from '../user-menu/user-menu';
 
+import { AppRoutes } from '../../constants';
 import { useAppSelector } from '../../hooks';
 
-function AddReview(): JSX.Element {
+function AddReview(): JSX.Element | null {
   const {id: idParam} = useParams();
-  const films = useAppSelector((state) => state.films);
+  const {films, user} = useAppSelector((state) => state);
   const film = films.find(({id}) => id.toString() === idParam);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user === null) {
+      navigate(AppRoutes.SignIn);
+    }
+  }, [user]);
+
 
   if (film === undefined) {
     return <NotFound />;
@@ -50,7 +60,7 @@ function AddReview(): JSX.Element {
       </div>
 
       <div className="add-review">
-        <ReviewForm />
+        <ReviewForm filmId={film.id} />
       </div>
 
     </section>

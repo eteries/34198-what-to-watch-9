@@ -18,7 +18,7 @@ type FilmContentProps = {
 
 function FilmContent({film}: FilmContentProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const {similarFilms} = useAppSelector((state) => state);
+  const {similarFilms, user} = useAppSelector((state) => state);
   const {id, name, backgroundImage, posterImage, genre, released} = film;
 
   useEffect(() => {
@@ -53,8 +53,13 @@ function FilmContent({film}: FilmContentProps): JSX.Element {
 
               <div className="film-card__buttons">
                 <FilmActions id={id} />
-
-                <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
+                {user !== null &&
+                  <Link
+                    to={ `/films/${ id }/review` }
+                    className="btn film-card__button"
+                  >
+                    Add review
+                  </Link> }
               </div>
             </div>
           </div>
