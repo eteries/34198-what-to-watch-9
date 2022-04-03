@@ -9,7 +9,7 @@ type FilmPromoProps = {
 };
 
 function FilmPromo({film, children}: PropsWithChildren<FilmPromoProps>): JSX.Element {
-  const {id, name, genre, released, posterImage, backgroundImage} = film;
+  const {id, name, genre, released, posterImage, backgroundImage, isFavorite} = film;
   return (
     <section className="film-card">
       <div className="film-card__bg">
@@ -34,7 +34,7 @@ function FilmPromo({film, children}: PropsWithChildren<FilmPromoProps>): JSX.Ele
             </p>
 
             <div className="film-card__buttons">
-              <FilmActions id={id} />
+              <FilmActions id={id} isFavorite={isFavorite} />
             </div>
           </div>
         </div>

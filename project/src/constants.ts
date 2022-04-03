@@ -94,5 +94,12 @@ export const FILM_LIST_CHUNK_SIZE = 8;
 
 export enum Messages {
   ReviewSent = 'Your review has been successfully sent',
-  LoggedOut = 'You have been successfully logged out'
+  LoggedOut = 'You have been successfully logged out',
+  FavoriteRemoved = 'The film has been successfully removed from your list',
+  FavoriteAdded = 'The film has been successfully added to your list'
+}
+
+export enum ApiCommand {
+  Remove = 0,
+  Add = 1
 }

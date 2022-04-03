@@ -2,14 +2,20 @@ import FilmList from '../film-list/film-list';
 import Logo from '../logo/logo';
 import UserMenu from '../user-menu/user-menu';
 
-import { Film } from '../../types/film';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFavoriteFilmsAction } from '../../store/async-actions';
+import { State } from '../../types/state';
 import Footer from '../footer/footer';
+import { useEffect } from 'react';
 
-type MyListProps = {
-  favorites: Film[];
-}
+function MyList(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const {favoriteFilms} = useAppSelector((state: State) => state);
 
-function MyList({favorites}: MyListProps): JSX.Element {
+  useEffect(() => {
+    dispatch(fetchFavoriteFilmsAction());
+  }, []);
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -23,7 +29,7 @@ function MyList({favorites}: MyListProps): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmList films={favorites} />
+        <FilmList films={favoriteFilms} />
       </section>
 
       <Footer />

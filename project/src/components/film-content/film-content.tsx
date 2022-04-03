@@ -19,7 +19,7 @@ type FilmContentProps = {
 function FilmContent({film}: FilmContentProps): JSX.Element {
   const dispatch = useAppDispatch();
   const {similarFilms, user} = useAppSelector((state) => state);
-  const {id, name, backgroundImage, posterImage, genre, released} = film;
+  const {id, name, backgroundImage, posterImage, genre, released, isFavorite} = film;
 
   useEffect(() => {
     dispatch(fetchReviewsAction(id));
@@ -52,7 +52,7 @@ function FilmContent({film}: FilmContentProps): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <FilmActions id={id} />
+                <FilmActions id={id} isFavorite={isFavorite} />
                 {user !== null &&
                   <Link
                     to={ `/films/${ id }/review` }

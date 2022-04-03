@@ -4,15 +4,18 @@ import { Film } from '../../types/film';
 
 type FilmListProps = {
   films: Film[];
+  hasVideoPreview?: boolean;
 }
 
-function FilmList({films}: FilmListProps): JSX.Element {
+function FilmList({films, hasVideoPreview = true}: FilmListProps): JSX.Element {
   return (
     <div className="catalog__films-list">
       {
         films.map((film) => (
-          <FilmCard key={film.id}
+          <FilmCard
+            key={film.id}
             film={film}
+            hasVideoPreview={hasVideoPreview}
           />
         ))
       }

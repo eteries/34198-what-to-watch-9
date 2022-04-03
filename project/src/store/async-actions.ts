@@ -4,12 +4,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   changeAuthStatus,
   changeLoadingStatus,
-  filterFilms,
+  filterFilms, loadFavoriteFilms,
   loadFilms,
   loadReviews,
   loadSimilarFilms,
   loadUserInfo,
-  redirectToRoute
+  redirectToRoute, replaceFilm
 } from './actions';
 
 import { ApiRoutes, AppRoutes, AuthorizationStatus, Messages } from '../constants';
@@ -21,6 +21,7 @@ import { UserData } from '../types/user-data';
 import { errorHandle } from '../services/error';
 import { ReviewData } from '../types/review-data';
 import { toast } from 'react-toastify';
+import { FavoriteData } from '../types/favorite-data';
 
 export const fetchFilmsAction = createAsyncThunk(
   'data/fetchFilms',
@@ -62,6 +63,18 @@ export const fetchSimilarFilmsAction = createAsyncThunk(
   },
 );
 
+export const fetchFavoriteFilmsAction = createAsyncThunk(
+  'data/fetchFavoriteFilms',
+  async () => {
+    try {
+      const {data} = await api.get<Film[]>(`${ApiRoutes.Favorites}`);
+      store.dispatch(loadFavoriteFilms(data));
+    } catch (err) {
+      errorHandle(err);
+    }
+  },
+);
+
 export const postReviewAction = createAsyncThunk(
   'data/postReview',
   async ({filmId, ...review}: ReviewData) => {
@@ -75,6 +88,23 @@ export const postReviewAction = createAsyncThunk(
     } catch (err) {
       errorHandle(err);
       store.dispatch(changeLoadingStatus(false));
+    }
+  },
+);
+
+export const changeFavoriteStatusAction = createAsyncThunk(
+  'data/changeFavoriteStatus',
+  async ({filmId, status}: FavoriteData) => {
+    try {
+      const {data} = await api.post<Film>(`${ApiRoutes.Favorites}/${filmId}/${status}`);
+      store.dispatch(replaceFilm(data));
+      store.dispatch(loadFavoriteFilms([]));
+      store.dispatch(redirectToRoute(AppRoutes.MyList));
+      status
+        ? toast.success(Messages.FavoriteAdded)
+        : toast.success(Messages.FavoriteRemoved);
+    } catch (err) {
+      errorHandle(err);
     }
   },
 );

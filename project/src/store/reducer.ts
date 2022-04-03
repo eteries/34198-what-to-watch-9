@@ -4,11 +4,11 @@ import {
   changeAuthStatus,
   changeGenre,
   changeLoadingStatus,
-  filterFilms,
+  filterFilms, loadFavoriteFilms,
   loadFilms,
   loadReviews,
   loadSimilarFilms,
-  loadUserInfo
+  loadUserInfo, replaceFilm
 } from './actions';
 
 import { ALL_GENRES, AuthorizationStatus } from '../constants';
@@ -20,6 +20,7 @@ const initialState: State = {
   filteredFilms: [],
   reviews: [],
   similarFilms: [],
+  favoriteFilms: [],
   isLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
@@ -35,6 +36,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadSimilarFilms, (state: State, {payload}) => {
       state.similarFilms = payload;
+    })
+    .addCase(loadFavoriteFilms, (state: State, {payload}) => {
+      state.favoriteFilms = payload;
     })
     .addCase(loadUserInfo, (state: State, {payload}) => {
       state.user = payload;
@@ -52,6 +56,10 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeLoadingStatus, (state, action) => {
       state.isLoading = action.payload;
+    })
+    .addCase(replaceFilm, (state, action) => {
+      const index = state.films.findIndex(({id}) => id === action.payload.id);
+      state.films[index] = action.payload;
     });
 });
 
