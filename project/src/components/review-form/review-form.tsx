@@ -1,6 +1,6 @@
 import { ChangeEvent, Fragment, useState, FormEvent, useEffect } from 'react';
 
-import { Settings } from '../../constants';
+import { Setting } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postReviewAction } from '../../store/async-actions';
 import { State } from '../../types/state';
@@ -10,7 +10,7 @@ type ReviewFormProps = {
 }
 
 function ReviewForm({filmId}: ReviewFormProps): JSX.Element {
-  const [rating, setRating] = useState(Settings.DefaultRating);
+  const [rating, setRating] = useState(Setting.DefaultRating);
   const [review, setReview] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
@@ -52,7 +52,7 @@ function ReviewForm({filmId}: ReviewFormProps): JSX.Element {
       <div className="rating">
         <div className="rating__stars">
           {
-            new Array(Settings.StarsNum)
+            new Array(Setting.StarsNum)
               .fill(null)
               .map((item, index) => (index + 1))
               .reverse()

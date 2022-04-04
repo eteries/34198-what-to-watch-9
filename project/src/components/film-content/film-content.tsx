@@ -11,7 +11,7 @@ import UserMenu from '../user-menu/user-menu';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchReviewsAction, fetchSimilarFilmsAction } from '../../store/async-actions';
 import { Film } from '../../types/film';
-import { Settings } from '../../constants';
+import { Setting } from '../../constants';
 
 type FilmContentProps = {
   film: Film;
@@ -23,7 +23,7 @@ function FilmContent({film}: FilmContentProps): JSX.Element {
   const {id, name, backgroundImage, posterImage, genre, released, isFavorite} = film;
   const selectedSimilarFilms = similarFilms
     .filter((item) => item.id !== id)
-    .slice(0, Settings.SimilarFilmsMaxNum);
+    .slice(0, Setting.SimilarFilmsMaxNum);
 
   useEffect(() => {
     dispatch(fetchReviewsAction(id));

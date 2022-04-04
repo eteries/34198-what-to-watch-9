@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import VideoPlayer from '../video-player/video-player';
 
-import { AppRoutes, Settings } from '../../constants';
+import { AppRoute, Setting } from '../../constants';
 import useDelayedEffect from '../../hooks/use-delayed-effect/use-delayed-effect';
 import { Film } from '../../types/film';
 
@@ -12,7 +12,7 @@ type FilmCardProps = {
 
 function FilmCard({film}: FilmCardProps): JSX.Element {
   const {name, id} = film;
-  const [isPlaying, setIsPlaying] = useDelayedEffect(Settings.VideoPreviewDelay);
+  const [isPlaying, setIsPlaying] = useDelayedEffect(Setting.VideoPreviewDelay);
   const navigate = useNavigate();
 
   return (
@@ -24,7 +24,7 @@ function FilmCard({film}: FilmCardProps): JSX.Element {
       <div
         className="small-film-card__image"
         role="button"
-        onClick={() => navigate(`${AppRoutes.Films}/${id}`)}
+        onClick={() => navigate(`${AppRoute.Films}/${id}`)}
       >
         <VideoPlayer
           hasAutoPlay={isPlaying}
@@ -36,7 +36,7 @@ function FilmCard({film}: FilmCardProps): JSX.Element {
       <h3 className="small-film-card__title">
         <Link
           className="small-film-card__link"
-          to={`${AppRoutes.Films}/${id}`}
+          to={`${AppRoute.Films}/${id}`}
         >
           {name}
         </Link>

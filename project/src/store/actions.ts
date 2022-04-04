@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 
-import { AppRoutes, AuthorizationStatus } from '../constants';
+import { AppRoute, AuthorizationStatus } from '../constants';
 import { Film } from '../types/film';
 import { Review } from '../types/review';
 import { User } from '../types/user';
@@ -27,6 +27,6 @@ export const changeAuthStatus = createAction<AuthorizationStatus>('user/changeAu
 
 export const changeLoadingStatus = createAction<boolean>('user/changeLoadedStatus');
 
-export const redirectToRoute = createAction<AppRoutes | string>('app/redirectToRoute');
+export const redirectToRoute = createAction<AppRoute | string>('app/redirectToRoute');
 
 export const replaceFilm = createAction<Film>('data/replaceFilm');

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../logo/logo';
 import UserMenu from '../user-menu/user-menu';
 
-import { AppRoutes } from '../../constants';
+import { AppRoute } from '../../constants';
 import { Film } from '../../types/film';
 
 type FilmHeaderProps = {
@@ -13,7 +13,7 @@ type FilmHeaderProps = {
 function FilmHeader({film}: FilmHeaderProps): JSX.Element {
   const navigate = useNavigate();
   const onClickPlay = () => navigate(`/player/${ film.id }`);
-  const onClickAdd = () => navigate(AppRoutes.MyList);
+  const onClickAdd = () => navigate(AppRoute.MyList);
 
   return (
     <>

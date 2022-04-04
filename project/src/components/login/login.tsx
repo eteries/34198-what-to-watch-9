@@ -11,7 +11,7 @@ import { loginAction } from '../../store/async-actions';
 import { AuthData } from '../../types/auth-data';
 import { State } from '../../types/state';
 import Footer from '../footer/footer';
-import { AppRoutes, AuthorizationStatus } from '../../constants';
+import { AppRoute, AuthorizationStatus } from '../../constants';
 
 function Login(): JSX.Element {
   const {authorizationStatus} = useAppSelector((state: State) => state);
@@ -22,7 +22,7 @@ function Login(): JSX.Element {
   const dispatch = useAppDispatch();
 
   if (authorizationStatus === AuthorizationStatus.Auth) {
-    return <Navigate to={ AppRoutes.Main} />;
+    return <Navigate to={ AppRoute.Main} />;
   }
 
   if (authorizationStatus === AuthorizationStatus.Unknown) {

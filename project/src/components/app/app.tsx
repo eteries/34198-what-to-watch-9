@@ -10,7 +10,7 @@ import NotFound from '../not-found/not-found';
 import PlayerPage from '../player-page/player-page';
 import PrivateRoute from '../private-route/private-route';
 
-import { AppRoutes } from '../../constants';
+import { AppRoute } from '../../constants';
 import { useAppSelector } from '../../hooks';
 import browserHistory from '../../services/browser-history';
 
@@ -20,22 +20,22 @@ function App(): JSX.Element {
   return (
     <Router history={browserHistory}>
       <Routes>
-        <Route path={AppRoutes.SignIn} element={<Login />} />
-        <Route path={AppRoutes.MyList} element={
+        <Route path={AppRoute.SignIn} element={<Login />} />
+        <Route path={AppRoute.MyList} element={
           <PrivateRoute authorizationStatus={authorizationStatus}>
             <MyList />
           </PrivateRoute>
         }
         />
-        <Route path={AppRoutes.AddReview} element={
+        <Route path={AppRoute.AddReview} element={
           <PrivateRoute authorizationStatus={authorizationStatus}>
             <AddReview />
           </PrivateRoute>
         }
         />
-        <Route path={AppRoutes.Film} element={<FilmPage />} />
-        <Route path={AppRoutes.Player} element={<PlayerPage />} />
-        <Route path={AppRoutes.Main} element={<Main />} />
+        <Route path={AppRoute.Film} element={<FilmPage />} />
+        <Route path={AppRoute.Player} element={<PlayerPage />} />
+        <Route path={AppRoute.Main} element={<Main />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

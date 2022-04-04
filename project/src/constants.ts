@@ -1,6 +1,6 @@
 import { RatingData } from './types/rating-data';
 
-export enum AppRoutes {
+export enum AppRoute {
   Main=  '/',
   SignIn = '/login',
   MyList = '/mylist',
@@ -10,7 +10,7 @@ export enum AppRoutes {
   Player = '/player/:id',
 }
 
-export enum ApiRoutes {
+export enum ApiRoute {
   Films = '/films',
   Similar = '/similar',
   Promo = '/promo',
@@ -28,7 +28,7 @@ export enum AuthorizationStatus {
 
 export const ALL_GENRES = 'All genres';
 
-export enum Settings {
+export enum Setting {
   DefaultRating = 8,
   StarsNum = 10,
   VideoPreviewDelay = 1000,
@@ -43,7 +43,7 @@ export enum HTTP_CODE {
   NOT_FOUND = 404,
 }
 
-export enum FilmTabs {
+export enum FilmTab {
   Overview = 'Overview',
   Details = 'Details',
   Reviews = 'Reviews',
@@ -92,7 +92,7 @@ export enum Month {
   December
 }
 
-export enum Messages {
+export enum Message {
   ReviewSent = 'Your review has been successfully added',
   LoggedOut = 'You have been successfully logged out',
   FavoriteRemoved = 'The film has been successfully removed from your list',
