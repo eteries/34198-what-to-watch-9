@@ -7,7 +7,7 @@ import FilmContent from '../film-content/film-content';
 
 function FilmPage(): JSX.Element {
   const {id: idParam} = useParams();
-  const {films} = useAppSelector((state) => state);
+  const {films} = useAppSelector(({CONTENT}) => CONTENT);
   const film = films.find(({id}) => id.toString() === idParam);
 
   if (film === undefined) {

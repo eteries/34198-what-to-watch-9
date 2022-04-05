@@ -19,7 +19,8 @@ type FilmContentProps = {
 
 function FilmContent({film}: FilmContentProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const {similarFilms, user} = useAppSelector((state) => state);
+  const {similarFilms} = useAppSelector(({CONTENT}) => CONTENT);
+  const {user} = useAppSelector(({USER}) => USER);
   const {id, name, backgroundImage, posterImage, genre, released, isFavorite} = film;
   const selectedSimilarFilms = similarFilms
     .filter((item) => item.id !== id)

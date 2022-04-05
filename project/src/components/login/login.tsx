@@ -14,7 +14,7 @@ import Footer from '../footer/footer';
 import { AppRoute, AuthorizationStatus } from '../../constants';
 
 function Login(): JSX.Element {
-  const {authorizationStatus} = useAppSelector((state: State) => state);
+  const {authorizationStatus} = useAppSelector(({USER}: State) => USER);
 
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);

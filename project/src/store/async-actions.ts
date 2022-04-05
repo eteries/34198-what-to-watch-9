@@ -1,19 +1,21 @@
 import { api, store } from './index';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
+
+import { changeLoadingStatus } from './app-management/app-management';
+import { redirectToRoute } from './actions';
 
 import {
-  changeAuthStatus,
-  changeLoadingStatus,
   filterFilms,
   loadFavoriteFilms,
   loadFilms,
   loadPromoFilm,
   loadReviews,
   loadSimilarFilms,
-  loadUserInfo,
-  redirectToRoute,
   replaceFilm
-} from './actions';
+} from './content-management/content-management';
+
+import { changeAuthStatus, loadInfo } from './user-management/user-management';
 
 import { ApiRoute, AppRoute, AuthorizationStatus, Message } from '../constants';
 import { dropToken, saveToken } from '../services/token';
@@ -23,11 +25,10 @@ import { Review } from '../types/review';
 import { UserData } from '../types/user-data';
 import { errorHandle } from '../services/error';
 import { ReviewData } from '../types/review-data';
-import { toast } from 'react-toastify';
 import { FavoriteData } from '../types/favorite-data';
 
 export const fetchFilmsAction = createAsyncThunk(
-  'data/fetchFilms',
+  'content/fetchFilms',
   async () => {
     try {
       store.dispatch(changeLoadingStatus(true));
@@ -43,7 +44,7 @@ export const fetchFilmsAction = createAsyncThunk(
 );
 
 export const fetchPromoFilmAction = createAsyncThunk(
-  'data/fetchPromoFilm',
+  'content/fetchPromoFilm',
   async () => {
     try {
       store.dispatch(changeLoadingStatus(true));
@@ -58,7 +59,7 @@ export const fetchPromoFilmAction = createAsyncThunk(
 );
 
 export const fetchReviewsAction = createAsyncThunk(
-  'data/fetchReviews',
+  'content/fetchReviews',
   async (id: number) => {
     try {
       const {data} = await api.get<Review[]>(`${ApiRoute.Comments}/${id}`);
@@ -70,7 +71,7 @@ export const fetchReviewsAction = createAsyncThunk(
 );
 
 export const fetchSimilarFilmsAction = createAsyncThunk(
-  'data/fetchSimilarFilms',
+  'content/fetchSimilarFilms',
   async (id: number) => {
     try {
       const {data} = await api.get<Film[]>(`${ApiRoute.Films}/${id}${ApiRoute.Similar}`);
@@ -82,7 +83,7 @@ export const fetchSimilarFilmsAction = createAsyncThunk(
 );
 
 export const fetchFavoriteFilmsAction = createAsyncThunk(
-  'data/fetchFavoriteFilms',
+  'content/fetchFavoriteFilms',
   async () => {
     try {
       const {data} = await api.get<Film[]>(`${ApiRoute.Favorites}`);
@@ -94,7 +95,7 @@ export const fetchFavoriteFilmsAction = createAsyncThunk(
 );
 
 export const postReviewAction = createAsyncThunk(
-  'data/postReview',
+  'content/postReview',
   async ({filmId, ...review}: ReviewData) => {
     try {
       store.dispatch(changeLoadingStatus(true));
@@ -111,7 +112,7 @@ export const postReviewAction = createAsyncThunk(
 );
 
 export const changeFavoriteStatusAction = createAsyncThunk(
-  'data/changeFavoriteStatus',
+  'content/changeFavoriteStatus',
   async ({filmId, status}: FavoriteData) => {
     try {
       store.dispatch(changeLoadingStatus(true));
@@ -136,7 +137,7 @@ export const checkAuthAction = createAsyncThunk(
     try {
       const {data: {token, ...user}} = await api.get(ApiRoute.Login);
       store.dispatch(changeAuthStatus(AuthorizationStatus.Auth));
-      store.dispatch(loadUserInfo(user));
+      store.dispatch(loadInfo(user));
     } catch(err) {
       errorHandle(err);
       store.dispatch(changeAuthStatus(AuthorizationStatus.NoAuth));
@@ -151,7 +152,7 @@ export const loginAction = createAsyncThunk(
       const {data: {token, ...user}} = await api.post<UserData>(ApiRoute.Login, {email, password});
       saveToken(token);
       store.dispatch(changeAuthStatus(AuthorizationStatus.Auth));
-      store.dispatch(loadUserInfo(user));
+      store.dispatch(loadInfo(user));
       store.dispatch(redirectToRoute(AppRoute.Main));
     } catch (err) {
       errorHandle(err);
@@ -166,7 +167,7 @@ export const logoutAction = createAsyncThunk(
       await api.delete(ApiRoute.Logout);
       dropToken();
       store.dispatch(changeAuthStatus(AuthorizationStatus.NoAuth));
-      store.dispatch(loadUserInfo(null));
+      store.dispatch(loadInfo(null));
       toast.success(Message.LoggedOut);
     } catch (err) {
       errorHandle(err);

@@ -15,7 +15,7 @@ type FilmDescriptionProps = {
 
 function FilmDescription({film}: FilmDescriptionProps): JSX.Element {
   const [activeTab, setActiveTab] = useState<string>(FilmTab.Overview);
-  const {reviews} = useAppSelector((state) => state);
+  const {reviews} = useAppSelector(({CONTENT}) => CONTENT);
   const tabs = Object.keys(FilmTab);
 
   useEffect(() => {

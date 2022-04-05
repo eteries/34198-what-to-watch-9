@@ -15,7 +15,7 @@ import { useAppSelector } from '../../hooks';
 import browserHistory from '../../services/browser-history';
 
 function App(): JSX.Element {
-  const {authorizationStatus} = useAppSelector((state) => state);
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
 
   return (
     <Router history={browserHistory}>

@@ -7,7 +7,7 @@ import { useAppSelector } from '../../hooks';
 
 function PlayerPage(): JSX.Element {
   const {id: idParam} = useParams();
-  const films = useAppSelector((state) => state.films);
+  const {films} = useAppSelector(({CONTENT}) => CONTENT);
   const film = films.find(({id}) => id.toString() === idParam);
   const navigate = useNavigate();
 

@@ -104,3 +104,9 @@ export enum ApiCommand {
   Remove = 0,
   Add = 1
 }
+
+export enum NameSpace {
+  App = 'APP',
+  Content = 'CONTENT',
+  User = 'USER'
+}

@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 function MyList(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {favoriteFilms} = useAppSelector((state: State) => state);
+  const {favoriteFilms} = useAppSelector(({CONTENT}: State) => CONTENT);
 
   useEffect(() => {
     dispatch(fetchFavoriteFilmsAction());

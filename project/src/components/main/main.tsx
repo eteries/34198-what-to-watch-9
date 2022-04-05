@@ -11,13 +11,14 @@ import UserMenu from '../user-menu/user-menu';
 import { ALL_GENRES, Setting } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import UseShowMore from '../../hooks/use-show-more/use-show-more';
-import { filterFilms } from '../../store/actions';
+import { filterFilms } from '../../store/content-management/content-management';
 import { fetchPromoFilmAction } from '../../store/async-actions';
 import { mapToUniqueKeys } from '../../utils';
 
 function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {films, promoFilm, filteredFilms, isLoading} = useAppSelector((state) => state);
+  const {films, promoFilm, filteredFilms} = useAppSelector(({CONTENT}) => CONTENT);
+  const {isLoading} = useAppSelector(({APP}) => APP);
   const genres = mapToUniqueKeys(films, 'genre', ALL_GENRES).slice(0, Setting.GenresMaxLength);
   const [visibleFilms, isButtonShown, showMore] = UseShowMore(filteredFilms, Setting.FilmListChunk);
 

@@ -7,7 +7,7 @@ import { redirectToRoute } from '../../store/actions';
 import { logoutAction } from '../../store/async-actions';
 
 function UserMenu(): JSX.Element {
-  const {authorizationStatus, user} = useAppSelector((state) => state);
+  const {authorizationStatus, user} = useAppSelector(({USER}) => USER);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
