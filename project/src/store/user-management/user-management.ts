@@ -5,7 +5,7 @@ import { UserManagement} from '../../types/state';
 
 const initialState: UserManagement = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  user: null
+  user: null,
 };
 
 export const userManagement = createSlice({
