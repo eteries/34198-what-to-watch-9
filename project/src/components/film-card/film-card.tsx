@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import VideoPlayer from '../video-player/video-player';
 
-import { VIDEO_PREVIEW_DELAY } from '../../constants';
+import { AppRoute, Setting } from '../../constants';
 import useDelayedEffect from '../../hooks/use-delayed-effect/use-delayed-effect';
 import { Film } from '../../types/film';
 
@@ -12,7 +12,8 @@ type FilmCardProps = {
 
 function FilmCard({film}: FilmCardProps): JSX.Element {
   const {name, id} = film;
-  const [isPlaying, setIsPlaying] = useDelayedEffect(VIDEO_PREVIEW_DELAY);
+  const [isPlaying, setIsPlaying] = useDelayedEffect(Setting.VideoPreviewDelay);
+  const navigate = useNavigate();
 
   return (
     <article
@@ -20,7 +21,11 @@ function FilmCard({film}: FilmCardProps): JSX.Element {
       onMouseEnter={() => setIsPlaying(true)}
       onMouseLeave={() => setIsPlaying(false)}
     >
-      <div className="small-film-card__image">
+      <div
+        className="small-film-card__image"
+        role="button"
+        onClick={() => navigate(`${AppRoute.Films}/${id}`)}
+      >
         <VideoPlayer
           hasAutoPlay={isPlaying}
           video={film}
@@ -31,7 +36,7 @@ function FilmCard({film}: FilmCardProps): JSX.Element {
       <h3 className="small-film-card__title">
         <Link
           className="small-film-card__link"
-          to={`/films/${id}`}
+          to={`${AppRoute.Films}/${id}`}
         >
           {name}
         </Link>

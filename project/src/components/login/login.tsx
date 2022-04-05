@@ -1,19 +1,33 @@
 import { FormEvent, useRef } from 'react';
+import { Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import Logo from '../logo/logo';
+import Loading from '../loading/loading';
 import UserMenu from '../user-menu/user-menu';
 
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/async-actions';
 import { AuthData } from '../../types/auth-data';
+import { State } from '../../types/state';
 import Footer from '../footer/footer';
+import { AppRoute, AuthorizationStatus } from '../../constants';
 
 function Login(): JSX.Element {
+  const {authorizationStatus} = useAppSelector(({USER}: State) => USER);
+
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
+
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    return <Navigate to={ AppRoute.Main} />;
+  }
+
+  if (authorizationStatus === AuthorizationStatus.Unknown) {
+    return <Loading position="screen" />;
+  }
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));

@@ -18,6 +18,8 @@ function UseShowMore<T>(arr: T[], chunkSize: number): [T[], boolean, ()=> void] 
 
   useEffect(() => {
     showMore();
+
+    return () => setCurrentIndex(chunkSize);
   },[arr]);
 
   return [visibleItems, isButtonShown, showMore];

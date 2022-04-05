@@ -1,10 +1,10 @@
 import { Middleware } from 'redux';
 
-import { reducer } from '../reducer';
+import { rootReducer } from '../root-reducer';
 
 import browserHistory from '../../services/browser-history';
 
-type Reducer = ReturnType<typeof reducer>;
+type Reducer = ReturnType<typeof rootReducer>;
 
 export const redirect: Middleware<unknown, Reducer>=
   (_store) =>

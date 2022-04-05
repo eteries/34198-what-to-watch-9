@@ -1,6 +1,6 @@
 import { RatingData } from './types/rating-data';
 
-export enum AppRoutes {
+export enum AppRoute {
   Main=  '/',
   SignIn = '/login',
   MyList = '/mylist',
@@ -10,7 +10,7 @@ export enum AppRoutes {
   Player = '/player/:id',
 }
 
-export enum ApiRoutes {
+export enum ApiRoute {
   Films = '/films',
   Similar = '/similar',
   Promo = '/promo',
@@ -26,14 +26,16 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum Rating {
-  DefaultValue = 8,
-  StarsNum = 10,
-}
-
-export const VIDEO_PREVIEW_DELAY = 1000;
-
 export const ALL_GENRES = 'All genres';
+
+export enum Setting {
+  DefaultRating = 8,
+  StarsNum = 10,
+  VideoPreviewDelay = 1000,
+  GenresMaxLength = 10,
+  FilmListChunk = 8,
+  SimilarFilmsMaxNum = 4
+}
 
 export enum HTTP_CODE {
   BAD_REQUEST = 400,
@@ -41,7 +43,7 @@ export enum HTTP_CODE {
   NOT_FOUND = 404,
 }
 
-export enum FilmTabs {
+export enum FilmTab {
   Overview = 'Overview',
   Details = 'Details',
   Reviews = 'Reviews',
@@ -90,9 +92,21 @@ export enum Month {
   December
 }
 
-export const FILM_LIST_CHUNK_SIZE = 8;
+export enum Message {
+  ReviewSent = 'Your review has been successfully added',
+  LoggedOut = 'You have been successfully logged out',
+  FavoriteRemoved = 'The film has been successfully removed from your list',
+  FavoriteAdded = 'The film has been successfully added to your list',
+  UnknownError = 'Some data seems temporally unavailable. Try again later.'
+}
 
-export enum Messages {
-  ReviewSent = 'Your review has been successfully sent',
-  LoggedOut = 'You have been successfully logged out'
+export enum ApiCommand {
+  Remove = 0,
+  Add = 1
+}
+
+export enum NameSpace {
+  App = 'APP',
+  Content = 'CONTENT',
+  User = 'USER'
 }

@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeGenre } from '../../store/actions';
+import { changeGenre } from '../../store/content-management/content-management';
 
 type GenreListProps = {
   genres: string[];
@@ -10,7 +10,7 @@ type GenreListProps = {
 
 function GenreList({genres, onChange}:   GenreListProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const activeGenre = useAppSelector(({genre}) => genre);
+  const {genre: activeGenre} = useAppSelector(({CONTENT}) => CONTENT);
   const setActiveClass = (genre: string) => genre === activeGenre ? 'catalog__genres-item--active' : '';
 
   const onGenreClick = (evt: MouseEvent<HTMLAnchorElement>, genre: string) => {

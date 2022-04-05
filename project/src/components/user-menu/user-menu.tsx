@@ -1,25 +1,30 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MouseEvent } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AppRoutes, AuthorizationStatus } from '../../constants';
+import { AppRoute, AuthorizationStatus } from '../../constants';
 import { redirectToRoute } from '../../store/actions';
 import { logoutAction } from '../../store/async-actions';
 
 function UserMenu(): JSX.Element {
-  const {authorizationStatus, user} = useAppSelector((state) => state);
+  const {authorizationStatus, user} = useAppSelector(({USER}) => USER);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleLogOutClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     dispatch(logoutAction());
-    dispatch(redirectToRoute(AppRoutes.Main));
+    dispatch(redirectToRoute(AppRoute.Main));
   };
 
   const loggedInTemplate = (
     <ul className="user-block">
       <li className="user-block__item">
-        <div className="user-block__avatar">
+        <div
+          className="user-block__avatar"
+          role="button"
+          onClick={() => navigate(AppRoute.MyList)}
+        >
           <img src={user?.avatarUrl} alt="User avatar" width="63" height="63"/>
         </div>
       </li>
@@ -36,7 +41,7 @@ function UserMenu(): JSX.Element {
 
   const loggedOutTemplate = (
     <div className="user-block">
-      <Link to={AppRoutes.SignIn} className="user-block__link">Sign in</Link>
+      <Link to={AppRoute.SignIn} className="user-block__link">Sign in</Link>
     </div>
   );
 

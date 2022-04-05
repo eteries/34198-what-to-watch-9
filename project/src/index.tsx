@@ -14,7 +14,7 @@ store.dispatch(checkAuthAction());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastContainer />
+      <ToastContainer limit={1} />
       <App />
     </Provider>
   </React.StrictMode>,

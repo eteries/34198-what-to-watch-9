@@ -2,14 +2,22 @@ import FilmList from '../film-list/film-list';
 import Logo from '../logo/logo';
 import UserMenu from '../user-menu/user-menu';
 
-import { Film } from '../../types/film';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFavoriteFilmsAction } from '../../store/async-actions';
+import { State } from '../../types/state';
 import Footer from '../footer/footer';
+import { useEffect } from 'react';
+import { AppRoute } from '../../constants';
+import { Link } from 'react-router-dom';
 
-type MyListProps = {
-  favorites: Film[];
-}
+function MyList(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const {favoriteFilms} = useAppSelector(({CONTENT}: State) => CONTENT);
 
-function MyList({favorites}: MyListProps): JSX.Element {
+  useEffect(() => {
+    dispatch(fetchFavoriteFilmsAction());
+  }, []);
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -23,7 +31,12 @@ function MyList({favorites}: MyListProps): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmList films={favorites} />
+        {favoriteFilms.length > 0 && <FilmList films={favoriteFilms} />}
+        {favoriteFilms.length === 0 && (
+          <p style={{textAlign: 'center'}}>
+            Add your favorite films from <Link style={{color: 'inherit'}} to={AppRoute.Main}>the catalog</Link> to watch them lately.
+          </p>
+        )}
       </section>
 
       <Footer />
