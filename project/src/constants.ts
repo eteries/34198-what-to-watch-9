@@ -121,3 +121,8 @@ export enum Pattern {
 export enum Validator {
   PatternMismatch = 'patternMismatch'
 }
+
+export enum ReviewLength {
+  Min = 50,
+  Max = 400
+}

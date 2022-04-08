@@ -1,6 +1,6 @@
 import { ChangeEvent, Fragment, useState, FormEvent, useEffect } from 'react';
 
-import { Setting } from '../../constants';
+import { ReviewLength, Setting } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postReviewAction } from '../../store/async-actions';
 import { State } from '../../types/state';
@@ -22,7 +22,7 @@ function ReviewForm({filmId}: ReviewFormProps): JSX.Element {
   useEffect(() => {
     const length = review.trim().length;
 
-    if (length < 50 || length > 400) {
+    if (length < ReviewLength.Min || length > ReviewLength.Max) {
       setIsValid(false);
       return;
     }
