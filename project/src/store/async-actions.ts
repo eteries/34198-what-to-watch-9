@@ -107,7 +107,7 @@ export const fetchFavoriteFilmsAction = createAsyncThunk<void, undefined, {
   'content/fetchFavoriteFilms',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      const {data} = await api.get<Film[]>(`${ApiRoute.Favorites}`);
+      const {data} = await api.get<Film[]>(ApiRoute.Favorites);
       dispatch(loadFavoriteFilms(data));
     } catch (err) {
       errorHandle(err);
