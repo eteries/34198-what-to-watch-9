@@ -12,7 +12,7 @@ type ReviewFormProps = {
 }
 
 function ReviewForm({filmId}: ReviewFormProps): JSX.Element {
-  const [rating, setRating] = useState(Setting.DefaultRating);
+  const [rating, setRating] = useState<number | null>(null);
   const [review, setReview] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
@@ -28,8 +28,14 @@ function ReviewForm({filmId}: ReviewFormProps): JSX.Element {
       setIsValid(false);
       return;
     }
+
+    if (rating === null) {
+      setIsValid(false);
+      return;
+    }
+
     setIsValid(true);
-  }, [review, isTouched]);
+  }, [review, rating, isTouched]);
 
   const handleTextInput = ({target: {value}}: ChangeEvent<HTMLTextAreaElement>) => {
     setReview(value);
@@ -45,7 +51,7 @@ function ReviewForm({filmId}: ReviewFormProps): JSX.Element {
     dispatch(postReviewAction({
       comment: review,
       filmId,
-      rating,
+      rating: rating as number,
     }));
   };
 
@@ -101,7 +107,7 @@ function ReviewForm({filmId}: ReviewFormProps): JSX.Element {
 
       {!isValid && isTouched &&
         <p className="form-message">
-          A review must be from 50 to 400 characters long
+          Give the film some stars and type a review from {ReviewLength.Min} to {ReviewLength.Max} characters long.
         </p>}
     </form>
   );

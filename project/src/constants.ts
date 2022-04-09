@@ -29,7 +29,6 @@ export enum AuthorizationStatus {
 export const ALL_GENRES = 'All genres';
 
 export enum Setting {
-  DefaultRating = 8,
   StarsNum = 10,
   VideoPreviewDelay = 1000,
   GenresMaxLength = 10,
