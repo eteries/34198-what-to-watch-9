@@ -1,5 +1,7 @@
 import { ChangeEvent, Fragment, useState, FormEvent, useEffect } from 'react';
 
+import './review-form.css';
+
 import { ReviewLength, Setting } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postReviewAction } from '../../store/async-actions';
@@ -98,7 +100,7 @@ function ReviewForm({filmId}: ReviewFormProps): JSX.Element {
       </div>
 
       {!isValid && isTouched &&
-        <p style={{color: '#866866'}}>
+        <p className="form-message">
           A review must be from 50 to 400 characters long
         </p>}
     </form>

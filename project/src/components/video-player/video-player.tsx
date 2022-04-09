@@ -1,3 +1,5 @@
+import './video-player.css';
+
 import Loading from '../loading/loading';
 
 import useVideoPlayer from '../../hooks/use-video-player/use-video-player';
@@ -51,7 +53,7 @@ function VideoPlayer({
                 <progress className="player__progress" value={getCurrentProgress()} max="100" />
                 <div className="player__toggler" style={{left: `${getCurrentProgress()}%`}}>Toggle</div>
               </div>
-              <div className="player__time-value" style={{minHeight: '20px'}}>
+              <div className="player__time-value player-time-video">
                 {formatTimeLeft(getTimeLeft())}
               </div>
             </div>
