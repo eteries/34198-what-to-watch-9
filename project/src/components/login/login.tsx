@@ -1,17 +1,16 @@
-import { FormEvent, useRef } from 'react';
+import { ChangeEvent, FormEvent, useRef } from 'react';
 import { Navigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 import Logo from '../logo/logo';
 import Loading from '../loading/loading';
 import UserMenu from '../user-menu/user-menu';
+import Footer from '../footer/footer';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/async-actions';
-import { AuthData } from '../../types/auth-data';
 import { State } from '../../types/state';
-import Footer from '../footer/footer';
-import { AppRoute, AuthorizationStatus } from '../../constants';
+import { AppRoute, AuthorizationStatus, Message, Pattern, Validator } from '../../constants';
+import { setInvalidClass, setValidator } from '../../utils/validate';
 
 function Login(): JSX.Element {
   const {authorizationStatus} = useAppSelector(({USER}: State) => USER);
@@ -29,28 +28,26 @@ function Login(): JSX.Element {
     return <Loading position="screen" />;
   }
 
-  const onSubmit = (authData: AuthData) => {
-    dispatch(loginAction(authData));
+  const handleEmailChange = ({target}: ChangeEvent<HTMLInputElement>) => {
+    setValidator(target, Validator.PatternMismatch, Message.EmailPatternMismatch);
+    setInvalidClass(target, 'sign-in__field--error', target.parentElement as HTMLDivElement);
+  };
+
+  const handlePasswordChange = ({target}: ChangeEvent<HTMLInputElement>) => {
+    setValidator(target, Validator.PatternMismatch, Message.PasswordPatternMismatch);
+    setInvalidClass(target, 'sign-in__field--error', target.parentElement as HTMLDivElement);
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (emailRef.current !== null && passwordRef.current !== null) {
+    const email = (emailRef.current as HTMLInputElement).value;
+    const password = (passwordRef.current as HTMLInputElement).value;
 
-      const email = emailRef.current.value.trim();
-      const password = passwordRef.current.value.trim();
-
-      if (email === '' || password === '') {
-        toast.error('Email and passport cannot be empty or consist of spaces');
-        return;
-      }
-
-      onSubmit({
-        email,
-        password,
-      });
-    }
+    dispatch(loginAction({
+      email,
+      password,
+    }));
   };
 
   return (
@@ -77,6 +74,8 @@ function Login(): JSX.Element {
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
+                pattern={Pattern.Email}
+                onChange={handleEmailChange}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
@@ -89,6 +88,8 @@ function Login(): JSX.Element {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
+                pattern={Pattern.Password}
+                onChange={handlePasswordChange}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>

@@ -1,5 +1,5 @@
-import { api, store } from './index';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
 
 import { changeLoadingStatus } from './app-management/app-management';
@@ -18,156 +18,197 @@ import {
 import { changeAuthStatus, loadInfo } from './user-management/user-management';
 
 import { ApiRoute, AppRoute, AuthorizationStatus, Message } from '../constants';
-import { dropToken, saveToken } from '../services/token';
-import { Film } from '../types/film';
-import { AuthData } from '../types/auth-data';
-import { Review } from '../types/review';
-import { UserData } from '../types/user-data';
 import { errorHandle } from '../services/error';
-import { ReviewData } from '../types/review-data';
+import { dropToken, saveToken } from '../services/token';
+import { AuthData } from '../types/auth-data';
 import { FavoriteData } from '../types/favorite-data';
+import { Film } from '../types/film';
+import { Review } from '../types/review';
+import { ReviewData } from '../types/review-data';
+import { AppDispatch, State } from '../types/state';
+import { UserData } from '../types/user-data';
 
-export const fetchFilmsAction = createAsyncThunk(
+export const fetchFilmsAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'content/fetchFilms',
-  async () => {
+  async (_arg, {dispatch, extra: api}) => {
     try {
-      store.dispatch(changeLoadingStatus(true));
+      dispatch(changeLoadingStatus(true));
       const {data} = await api.get<Film[]>(ApiRoute.Films);
-      store.dispatch(loadFilms(data));
-      store.dispatch(filterFilms());
-      store.dispatch(changeLoadingStatus(false));
+      dispatch(loadFilms(data));
+      dispatch(filterFilms());
+      dispatch(changeLoadingStatus(false));
     } catch (err) {
       errorHandle(err);
-      store.dispatch(changeLoadingStatus(false));
+      dispatch(changeLoadingStatus(false));
     }
   },
 );
 
-export const fetchPromoFilmAction = createAsyncThunk(
+export const fetchPromoFilmAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'content/fetchPromoFilm',
-  async () => {
+  async (_arg, {dispatch, extra: api}) => {
     try {
-      store.dispatch(changeLoadingStatus(true));
+      dispatch(changeLoadingStatus(true));
       const {data} = await api.get<Film>(ApiRoute.Promo);
-      store.dispatch(loadPromoFilm(data));
-      store.dispatch(changeLoadingStatus(false));
+      dispatch(loadPromoFilm(data));
+      dispatch(changeLoadingStatus(false));
     } catch (err) {
       errorHandle(err);
-      store.dispatch(changeLoadingStatus(false));
+      dispatch(changeLoadingStatus(false));
     }
   },
 );
 
-export const fetchReviewsAction = createAsyncThunk(
+export const fetchReviewsAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'content/fetchReviews',
-  async (id: number) => {
+  async (id: number, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Review[]>(`${ApiRoute.Comments}/${id}`);
-      store.dispatch(loadReviews(data));
+      dispatch(loadReviews(data));
     } catch (err) {
       errorHandle(err);
     }
   },
 );
 
-export const fetchSimilarFilmsAction = createAsyncThunk(
+export const fetchSimilarFilmsAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'content/fetchSimilarFilms',
-  async (id: number) => {
+  async (id: number, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Film[]>(`${ApiRoute.Films}/${id}${ApiRoute.Similar}`);
-      store.dispatch(loadSimilarFilms(data));
+      dispatch(loadSimilarFilms(data));
     } catch (err) {
       errorHandle(err);
     }
   },
 );
 
-export const fetchFavoriteFilmsAction = createAsyncThunk(
+export const fetchFavoriteFilmsAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'content/fetchFavoriteFilms',
-  async () => {
+  async (_arg, {dispatch, extra: api}) => {
     try {
-      const {data} = await api.get<Film[]>(`${ApiRoute.Favorites}`);
-      store.dispatch(loadFavoriteFilms(data));
+      const {data} = await api.get<Film[]>(ApiRoute.Favorites);
+      dispatch(loadFavoriteFilms(data));
     } catch (err) {
       errorHandle(err);
     }
   },
 );
 
-export const postReviewAction = createAsyncThunk(
+export const postReviewAction = createAsyncThunk<void, ReviewData, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'content/postReview',
-  async ({filmId, ...review}: ReviewData) => {
+  async ({filmId, ...review}: ReviewData, {dispatch, extra: api}) => {
     try {
-      store.dispatch(changeLoadingStatus(true));
+      dispatch(changeLoadingStatus(true));
       const {data} = await api.post<Review[]>(`${ApiRoute.Comments}/${filmId}`, {...review});
-      store.dispatch(loadReviews(data));
-      store.dispatch(changeLoadingStatus(false));
-      store.dispatch(redirectToRoute(`${AppRoute.Films}/${filmId}`));
+      dispatch(loadReviews(data));
+      dispatch(changeLoadingStatus(false));
+      dispatch(redirectToRoute(`${AppRoute.Films}/${filmId}`));
       toast.success(Message.ReviewSent);
     } catch (err) {
       errorHandle(err);
-      store.dispatch(changeLoadingStatus(false));
+      dispatch(changeLoadingStatus(false));
     }
   },
 );
 
-export const changeFavoriteStatusAction = createAsyncThunk(
+export const changeFavoriteStatusAction = createAsyncThunk<void, FavoriteData, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'content/changeFavoriteStatus',
-  async ({filmId, status}: FavoriteData) => {
+  async ({filmId, status}: FavoriteData, {dispatch, extra: api}) => {
     try {
-      store.dispatch(changeLoadingStatus(true));
+      dispatch(changeLoadingStatus(true));
       const {data} = await api.post<Film>(`${ApiRoute.Favorites}/${filmId}/${status}`);
-      store.dispatch(replaceFilm(data));
-      store.dispatch(loadFavoriteFilms([]));
-      store.dispatch(redirectToRoute(AppRoute.MyList));
-      store.dispatch(changeLoadingStatus(false));
+      dispatch(replaceFilm(data));
+      dispatch(loadFavoriteFilms([]));
+      dispatch(redirectToRoute(AppRoute.MyList));
+      dispatch(changeLoadingStatus(false));
       status
         ? toast.success(Message.FavoriteAdded)
         : toast.success(Message.FavoriteRemoved);
     } catch (err) {
       errorHandle(err);
-      store.dispatch(changeLoadingStatus(false));
+      dispatch(changeLoadingStatus(false));
     }
   },
 );
 
-export const checkAuthAction = createAsyncThunk(
+export const checkAuthAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'user/checkAuth',
-  async () => {
+  async (_arg, {dispatch, extra: api}) => {
     try {
       const {data: {token, ...user}} = await api.get(ApiRoute.Login);
-      store.dispatch(changeAuthStatus(AuthorizationStatus.Auth));
-      store.dispatch(loadInfo(user));
+      dispatch(changeAuthStatus(AuthorizationStatus.Auth));
+      dispatch(loadInfo(user));
     } catch(err) {
       errorHandle(err);
-      store.dispatch(changeAuthStatus(AuthorizationStatus.NoAuth));
+      dispatch(changeAuthStatus(AuthorizationStatus.NoAuth));
     }
   },
 );
 
-export const loginAction = createAsyncThunk(
+export const loginAction = createAsyncThunk<void, AuthData, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'user/login',
-  async ({email, password}: AuthData) => {
+  async ({email, password}: AuthData, {dispatch, extra: api}) => {
     try {
       const {data: {token, ...user}} = await api.post<UserData>(ApiRoute.Login, {email, password});
       saveToken(token);
-      store.dispatch(changeAuthStatus(AuthorizationStatus.Auth));
-      store.dispatch(loadInfo(user));
-      store.dispatch(redirectToRoute(AppRoute.Main));
+      dispatch(changeAuthStatus(AuthorizationStatus.Auth));
+      dispatch(loadInfo(user));
+      dispatch(redirectToRoute(AppRoute.Main));
     } catch (err) {
       errorHandle(err);
     }
   },
 );
 
-export const logoutAction = createAsyncThunk(
+export const logoutAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'user/logout',
-  async () => {
+  async (_arg, {dispatch, extra: api}) => {
     try {
       await api.delete(ApiRoute.Logout);
       dropToken();
-      store.dispatch(changeAuthStatus(AuthorizationStatus.NoAuth));
-      store.dispatch(loadInfo(null));
+      dispatch(changeAuthStatus(AuthorizationStatus.NoAuth));
+      dispatch(loadInfo(null));
       toast.success(Message.LoggedOut);
     } catch (err) {
       errorHandle(err);

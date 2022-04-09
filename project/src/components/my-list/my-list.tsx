@@ -1,3 +1,5 @@
+import './my-list.css';
+
 import FilmList from '../film-list/film-list';
 import Logo from '../logo/logo';
 import UserMenu from '../user-menu/user-menu';
@@ -33,8 +35,8 @@ function MyList(): JSX.Element {
 
         {favoriteFilms.length > 0 && <FilmList films={favoriteFilms} />}
         {favoriteFilms.length === 0 && (
-          <p style={{textAlign: 'center'}}>
-            Add your favorite films from <Link style={{color: 'inherit'}} to={AppRoute.Main}>the catalog</Link> to watch them lately.
+          <p className="empty-favorites">
+            Add your favorite films from <Link className="empty-favorites-link" to={AppRoute.Main}>the catalog</Link> to watch them lately.
           </p>
         )}
       </section>

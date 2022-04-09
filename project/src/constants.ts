@@ -29,7 +29,6 @@ export enum AuthorizationStatus {
 export const ALL_GENRES = 'All genres';
 
 export enum Setting {
-  DefaultRating = 8,
   StarsNum = 10,
   VideoPreviewDelay = 1000,
   GenresMaxLength = 10,
@@ -38,6 +37,8 @@ export enum Setting {
 }
 
 export enum HTTP_CODE {
+  OK = 200,
+  NO_CONTENT = 204,
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   NOT_FOUND = 404,
@@ -97,7 +98,9 @@ export enum Message {
   LoggedOut = 'You have been successfully logged out',
   FavoriteRemoved = 'The film has been successfully removed from your list',
   FavoriteAdded = 'The film has been successfully added to your list',
-  UnknownError = 'Some data seems temporally unavailable. Try again later.'
+  UnknownError = 'Some data seems temporally unavailable. Try again later.',
+  PasswordPatternMismatch = 'The password should consist of at least one digit and one letter',
+  EmailPatternMismatch = 'The email should follow the pattern: name@site.zone'
 }
 
 export enum ApiCommand {
@@ -109,4 +112,18 @@ export enum NameSpace {
   App = 'APP',
   Content = 'CONTENT',
   User = 'USER'
+}
+
+export enum Pattern {
+  Password = '^(?=.*[A-Za-z])(?=.*[0-9]).+',
+  Email = '^\\S+@\\S+\\.[a-z]{2,}$'
+}
+
+export enum Validator {
+  PatternMismatch = 'patternMismatch'
+}
+
+export enum ReviewLength {
+  Min = 50,
+  Max = 400
 }

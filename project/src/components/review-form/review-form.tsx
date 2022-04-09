@@ -1,6 +1,8 @@
 import { ChangeEvent, Fragment, useState, FormEvent, useEffect } from 'react';
 
-import { Setting } from '../../constants';
+import './review-form.css';
+
+import { ReviewLength, Setting } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postReviewAction } from '../../store/async-actions';
 import { State } from '../../types/state';
@@ -10,7 +12,7 @@ type ReviewFormProps = {
 }
 
 function ReviewForm({filmId}: ReviewFormProps): JSX.Element {
-  const [rating, setRating] = useState(Setting.DefaultRating);
+  const [rating, setRating] = useState<number | null>(null);
   const [review, setReview] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
@@ -22,12 +24,18 @@ function ReviewForm({filmId}: ReviewFormProps): JSX.Element {
   useEffect(() => {
     const length = review.trim().length;
 
-    if (length < 50 || length > 400) {
+    if (length < ReviewLength.Min || length > ReviewLength.Max) {
       setIsValid(false);
       return;
     }
+
+    if (rating === null) {
+      setIsValid(false);
+      return;
+    }
+
     setIsValid(true);
-  }, [review, isTouched]);
+  }, [review, rating, isTouched]);
 
   const handleTextInput = ({target: {value}}: ChangeEvent<HTMLTextAreaElement>) => {
     setReview(value);
@@ -43,7 +51,7 @@ function ReviewForm({filmId}: ReviewFormProps): JSX.Element {
     dispatch(postReviewAction({
       comment: review,
       filmId,
-      rating,
+      rating: rating as number,
     }));
   };
 
@@ -98,8 +106,8 @@ function ReviewForm({filmId}: ReviewFormProps): JSX.Element {
       </div>
 
       {!isValid && isTouched &&
-        <p style={{color: '#866866'}}>
-          A review must be from 50 to 400 characters long
+        <p className="form-message">
+          Give the film some stars and type a review from {ReviewLength.Min} to {ReviewLength.Max} characters long.
         </p>}
     </form>
   );
