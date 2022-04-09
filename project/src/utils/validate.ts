@@ -9,3 +9,15 @@ export const setValidator = (
 
   control.reportValidity();
 };
+
+export const setInvalidClass = (
+  element: HTMLInputElement,
+  className: string,
+  target:HTMLElement = element,
+): string | void  => {
+  if (element.validity.valid) {
+    target.classList.remove(className);
+    return;
+  }
+  target.classList.add(className);
+};

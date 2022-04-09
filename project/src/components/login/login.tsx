@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/async-actions';
 import { State } from '../../types/state';
 import { AppRoute, AuthorizationStatus, Message, Pattern, Validator } from '../../constants';
-import { setValidator } from '../../utils/validate';
+import { setInvalidClass, setValidator } from '../../utils/validate';
 
 function Login(): JSX.Element {
   const {authorizationStatus} = useAppSelector(({USER}: State) => USER);
@@ -30,10 +30,12 @@ function Login(): JSX.Element {
 
   const handleEmailChange = ({target}: ChangeEvent<HTMLInputElement>) => {
     setValidator(target, Validator.PatternMismatch, Message.EmailPatternMismatch);
+    setInvalidClass(target, 'sign-in__field--error', target.parentElement as HTMLDivElement);
   };
 
   const handlePasswordChange = ({target}: ChangeEvent<HTMLInputElement>) => {
     setValidator(target, Validator.PatternMismatch, Message.PasswordPatternMismatch);
+    setInvalidClass(target, 'sign-in__field--error', target.parentElement as HTMLDivElement);
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
