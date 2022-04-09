@@ -115,7 +115,7 @@ export enum NameSpace {
 
 export enum Pattern {
   Password = '^(?=.*[A-Za-z])(?=.*[0-9]).+',
-  Email = '^\\S+@\\S+\\.\\S+$'
+  Email = '^\\S+@\\S+\\.[a-z]{2,}$'
 }
 
 export enum Validator {
